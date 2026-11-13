@@ -22,6 +22,7 @@ final class SettingsStore {
         static let lastOutputDeviceUID = "lastOutputDeviceUID"
         static let pausesWhenSilent = "pausesWhenSilent"
         static let pausesWhileRecording = "pausesWhileRecording"
+        static let spectrumFramesPerSecond = "spectrumFramesPerSecond"
         static let excludedBundleIDs = "excludedBundleIDs"
         static let exclusionList = "exclusionListBundleIDs"
     }
@@ -77,6 +78,34 @@ final class SettingsStore {
     var pausesWhileRecording: Bool {
         get { defaults.object(forKey: Key.pausesWhileRecording) as? Bool ?? true }
         set { defaults.set(newValue, forKey: Key.pausesWhileRecording) }
+    }
+
+    /// How often the response plot's spectrum is analysed, in Hz.
+    ///
+    /// Deliberately absent from Settings. It exists so the backdrop's cost can
+    /// be measured at different rates from the command line — see
+    /// `Tools/spectrum-rate.sh` — not as a control anyone has to understand.
+    /// The app reads it once at launch, because a `defaults write` from another
+    /// process does not notify this one.
+    ///
+    /// A value that is not a positive, finite number falls back to the default;
+    /// a positive one outside the supported range is clamped, so a typo on the
+    /// command line cannot leave the app without a working analyzer.
+    var spectrumFramesPerSecond: Double {
+        get {
+            guard let number = defaults.object(forKey: Key.spectrumFramesPerSecond) as? NSNumber
+            else { return SpectrumAnalyzer.defaultFramesPerSecond }
+            let value = number.doubleValue
+            guard value.isFinite, value > 0 else {
+                return SpectrumAnalyzer.defaultFramesPerSecond
+            }
+            return value.clamped(to: SpectrumAnalyzer.framesPerSecondRange)
+        }
+        set {
+            defaults.set(
+                newValue.clamped(to: SpectrumAnalyzer.framesPerSecondRange),
+                forKey: Key.spectrumFramesPerSecond)
+        }
     }
 
     /// Apps CoreEQ leaves alone, by bundle identifier, in the order they were

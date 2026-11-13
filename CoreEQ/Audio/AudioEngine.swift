@@ -324,7 +324,11 @@ final class AudioEngine: ObservableObject {
         // exist before there is a `self` to hand it.
         self.spectrum = SpectrumAnalyzer(
             buffer: processor.spectrumBuffer,
-            sampleRate: { AudioEngine.defaultSampleRate }
+            sampleRate: { AudioEngine.defaultSampleRate },
+            // Read once, at launch: the rate is a measurement knob with no
+            // interface, and a stored change from outside the app does not
+            // reach a running process (see `SettingsStore.spectrumFramesPerSecond`).
+            framesPerSecond: settings.spectrumFramesPerSecond
         )
         processor.setBypassed(!settings.isEnabled)
         spectrum.setSampleRateProvider { [weak self] in

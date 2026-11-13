@@ -124,6 +124,47 @@ struct SpectrumAnalyzerTests {
         }
     }
 
+    // MARK: - The rate it runs at
+
+    /// The default is decided in one place; the settings key and the
+    /// command-line tool only override it.
+    @Test func theDefaultRateIsThirtyHertz() {
+        #expect(SpectrumAnalyzer.defaultFramesPerSecond == 30)
+    }
+
+    @Test func anAnalyzerKeepsTheRateItWasGiven() {
+        let rate = sampleRate
+        let analyzer = SpectrumAnalyzer(
+            buffer: SpectrumAudioBuffer(capacity: 8_192), sampleRate: { rate },
+            framesPerSecond: 15)
+        #expect(analyzer.framesPerSecond == 15)
+    }
+
+    /// The attack and release are quoted at 60 Hz and converted, so the backdrop
+    /// moves at the same speed whatever it is analysed at — otherwise halving
+    /// the rate would halve the responsiveness with it.
+    @Test func theSmoothingTimeConstantDoesNotDependOnTheRate() {
+        for rate in [5.0, 15.0, 20.0, 30.0, 60.0] {
+            let perFrame = SpectrumAnalyzer.coefficient(
+                atSixtyHertz: 0.55, framesPerSecond: rate)
+            let equivalentAtSixty = 1 - pow(1 - perFrame, Float(rate / 60))
+            #expect(
+                abs(equivalentAtSixty - 0.55) < 0.0001,
+                "at \(rate) Hz the attack works out to \(equivalentAtSixty) instead of 0.55")
+        }
+    }
+
+    /// A stored value that is not a positive number can only be a mistake; the
+    /// analyzer falls back to the default rather than building a timer that
+    /// never fires.
+    @Test func anImpossibleRateFallsBackToTheDefault() {
+        let rate = sampleRate
+        let analyzer = SpectrumAnalyzer(
+            buffer: SpectrumAudioBuffer(capacity: 8_192), sampleRate: { rate },
+            framesPerSecond: 0)
+        #expect(analyzer.framesPerSecond == SpectrumAnalyzer.defaultFramesPerSecond)
+    }
+
     private func level(_ analyzer: SpectrumAnalyzer, closestTo frequency: Double) -> Float {
         analyzer.points
             .min { abs($0.frequency - frequency) < abs($1.frequency - frequency) }?
