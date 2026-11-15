@@ -154,7 +154,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             splitViewController.addSplitViewItem(content)
 
             let window = NSWindow(contentViewController: splitViewController)
-            window.title = "CoreEQ"
+            window.title = String(localized: "CoreEQ")
             window.styleMask = [
                 .titled, .closable, .miniaturizable, .resizable, .fullSizeContentView,
             ]

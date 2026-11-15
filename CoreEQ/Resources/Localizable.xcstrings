@@ -2,16 +2,47 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%@ copy" : {
-      "comment" : "Name of a duplicated preset, such as “Jazz copy”"
+      "comment" : "Name of a duplicated preset, such as “Jazz copy”",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 副本"
+          }
+        }
+      }
     },
     "%@ decibels" : {
-      "comment" : "Gain, for VoiceOver, such as “+2.5 decibels”"
+      "comment" : "Gain, for VoiceOver, such as “+2.5 decibels”",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 分贝"
+          }
+        }
+      }
     },
     "%@ downloaded" : {
-      "comment" : "AutoEq catalog download progress, size unknown, such as “2 MB downloaded”"
+      "comment" : "AutoEq catalog download progress, size unknown, such as “2 MB downloaded”",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已下载 %@"
+          }
+        }
+      }
     },
     "%@ hertz" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 赫兹"
+          }
+        }
+      }
     },
     "%@ of %@" : {
       "comment" : "AutoEq catalog download progress, such as “2 MB of 5 MB”",
@@ -20,6 +51,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ of %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ / %2$@"
           }
         }
       }
@@ -54,6 +91,28 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %#@filters@ · 前级增益 %3$@"
+          },
+          "substitutions" : {
+            "filters" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg 个滤波器"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -64,6 +123,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@, playing %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@，正在播放 %@"
           }
         }
       }
@@ -76,6 +141,12 @@
             "state" : "new",
             "value" : "%1$@, playing %2$@, edited"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@，正在播放 %@，已编辑"
+          }
         }
       }
     },
@@ -87,6 +158,12 @@
             "state" : "new",
             "value" : "%1$@: %2$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@：%2$@"
+          }
         }
       }
     },
@@ -97,6 +174,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@: %2$@ · %3$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@：%2$@ · %3$@"
           }
         }
       }
@@ -117,6 +200,18 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld filters"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个滤波器"
                 }
               }
             }
@@ -154,6 +249,28 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@filters@，以符合均衡器最多 %2$lld 个滤波器的限制。"
+          },
+          "substitutions" : {
+            "filters" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg 个滤波器已移除"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -173,6 +290,18 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld lines were skipped."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "已跳过 %lld 行。"
                 }
               }
             }
@@ -200,6 +329,18 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "以下行已跳过（共 %lld 行）："
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -219,6 +360,18 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld matches"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个匹配项"
                 }
               }
             }
@@ -246,6 +399,18 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 项测量"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -265,6 +430,18 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld models"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个型号"
                 }
               }
             }
@@ -292,6 +469,18 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个参数均衡频段"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -311,6 +500,18 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld values are beyond the ±12 dB graphic range."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个值超出 ±12 dB 图形均衡范围。"
                 }
               }
             }
@@ -338,374 +539,1306 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "已调整 %lld 个值以符合均衡器的限制。"
+                }
+              }
+            }
+          }
         }
       }
     },
     "A band boosts or cuts one frequency, on top of the Graphic sliders. Add one below, or double-click the graph where you want it." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段可在图形均衡滑块的基础上提升或衰减某个频率。可在下方添加，也可在图表中双击所需位置。"
+          }
+        }
+      }
     },
     "A gentle lift at both ends and a slightly recessed midrange, for orchestral and chamber music." : {
-      "comment" : "Built-in preset description: Classical"
+      "comment" : "Built-in preset description: Classical",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻柔提升低频和高频，略微收敛中频，适合管弦乐和室内乐。"
+          }
+        }
+      }
     },
     "A heavy low end with slightly pulled-back mids and a little air on top." : {
-      "comment" : "Built-in preset description: Hip-Hop"
+      "comment" : "Built-in preset description: Hip-Hop",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加强低频，略微收敛中频，并为高频增添一些通透感。"
+          }
+        }
+      }
     },
     "A softened bottom and a warm midrange, for relaxed background listening." : {
-      "comment" : "Built-in preset description: Lounge"
+      "comment" : "Built-in preset description: Lounge",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "柔和低频与温暖中频，适合轻松聆听或作为背景音乐。"
+          }
+        }
+      }
     },
     "AUTO" : {
-      "comment" : "Automatic gain switch, written in capitals as a badge"
+      "comment" : "Automatic gain switch, written in capitals as a badge",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动"
+          }
+        }
+      }
     },
     "About" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
     },
     "About CoreEQ" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于均衡器"
+          }
+        }
+      }
     },
     "Actions" : {
-      "comment" : "Band list column: the row’s buttons"
+      "comment" : "Band list column: the row’s buttons",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作"
+          }
+        }
+      }
     },
     "Add" : {
-      "comment" : "Open panel button: excludes the chosen apps"
+      "comment" : "Open panel button: excludes the chosen apps",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加"
+          }
+        }
+      }
     },
     "Add Band" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加频段"
+          }
+        }
+      }
     },
     "Add Preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加预设"
+          }
+        }
+      }
     },
     "Add a parametric band" : {
-      "comment" : "Add Band help tag"
+      "comment" : "Add Band help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加参数均衡频段"
+          }
+        }
+      }
     },
     "Add…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加…"
+          }
+        }
+      }
     },
     "Adjusted" : {
-      "comment" : "Import sheet status: value changed"
+      "comment" : "Import sheet status: value changed",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已调整"
+          }
+        }
+      }
     },
     "Allow Audio Access" : {
-      "comment" : "Menu bar extra row: opens Settings to give the audio permission"
+      "comment" : "Menu bar extra row: opens Settings to give the audio permission",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许访问音频"
+          }
+        }
+      }
     },
     "Allow…" : {
-      "comment" : "Button: asks macOS for the audio permission, which shows its prompt"
+      "comment" : "Button: asks macOS for the audio permission, which shows its prompt",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许…"
+          }
+        }
+      }
     },
     "An equalizer has to reach the sound to change it. CoreEQ reads audio on its way to your speakers, adjusts it, and plays it straight back. Nothing is recorded, stored, or sent anywhere, and quitting CoreEQ hands the audio back immediately." : {
-      "comment" : "What the audio permission is for, shown before macOS asks"
+      "comment" : "What the audio permission is for, shown before macOS asks",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器需要访问音频才能调整声音。均衡器会读取传往扬声器的音频、进行调整并立即播放。均衡器不会录制、存储或发送任何内容；退出后，音频会立即恢复原样。"
+          }
+        }
+      }
     },
     "Another copy of CoreEQ is running." : {
-      "comment" : "Alert title at launch, when CoreEQ is already running"
+      "comment" : "Alert title at launch, when CoreEQ is already running",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器的另一个副本正在运行。"
+          }
+        }
+      }
     },
     "Apps turned on below play straight to the output, without EQ." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在下方开启的应用会直接输出声音，不经过均衡处理。"
+          }
+        }
+      }
     },
     "At login, CoreEQ opens in the menu bar, without a window." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时，均衡器会在菜单栏中启动，不显示窗口。"
+          }
+        }
+      }
     },
     "Audio Diagnostics" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音频诊断"
+          }
+        }
+      }
     },
     "Audio Permission Needed" : {
-      "comment" : "Menu bar extra row: the permission was refused; opens Settings"
+      "comment" : "Menu bar extra row: the permission was refused; opens Settings",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要音频权限"
+          }
+        }
+      }
     },
     "AutoEq" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq"
+          }
+        }
+      }
     },
     "AutoEq publishes correction curves for a large catalog of headphones and earphones. Its web app can write a correction as an EqualizerAPO parametric EQ, which CoreEQ imports." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq 为大量耳机发布校正曲线。它的网页应用可以将校正结果导出为 EqualizerAPO 参数均衡格式，供均衡器导入。"
+          }
+        }
+      }
     },
     "AutoEq sent an unexpected response." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq 返回了意外的响应。"
+          }
+        }
+      }
     },
     "AutoEq sent data CoreEQ couldn’t read." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq 返回了均衡器无法读取的数据。"
+          }
+        }
+      }
     },
     "Automatic gain" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动增益"
+          }
+        }
+      }
     },
     "Band %lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld"
+          }
+        }
+      }
     },
     "Band %lld Q" : {
-      "comment" : "Band knob, for VoiceOver: the band’s width"
+      "comment" : "Band knob, for VoiceOver: the band’s width",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld 的 Q 值"
+          }
+        }
+      }
     },
     "Band %lld color" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld 的颜色"
+          }
+        }
+      }
     },
     "Band %lld frequency" : {
-      "comment" : "Band knob, for VoiceOver"
+      "comment" : "Band knob, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld 的频率"
+          }
+        }
+      }
     },
     "Band %lld gain" : {
-      "comment" : "Band knob, for VoiceOver"
+      "comment" : "Band knob, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld 的增益"
+          }
+        }
+      }
     },
     "Band %lld type" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频段 %lld 的类型"
+          }
+        }
+      }
     },
     "Bass" : {
-      "comment" : "Quick EQ slider: low frequencies"
+      "comment" : "Quick EQ slider: low frequencies",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低音"
+          }
+        }
+      }
     },
     "Bass and treble up, mids back, so percussion and brass come forward." : {
-      "comment" : "Built-in preset description: Latin"
+      "comment" : "Built-in preset description: Latin",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提升低音和高音，收敛中音，让打击乐和铜管乐更突出。"
+          }
+        }
+      }
     },
     "Bell" : {
-      "comment" : "Filter type"
+      "comment" : "Filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "钟形"
+          }
+        }
+      }
     },
     "Big, round low bass, a recessed lower midrange, and smooth highs." : {
-      "comment" : "Built-in preset description: R&B"
+      "comment" : "Built-in preset description: R&B",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "饱满浑厚的低频，收敛的中低频，以及柔和的高频。"
+          }
+        }
+      }
     },
     "Blue" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝色"
+          }
+        }
+      }
     },
     "Browse AutoEq Catalog" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览 AutoEq 目录"
+          }
+        }
+      }
     },
     "Browse AutoEq Catalog…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览 AutoEq 目录…"
+          }
+        }
+      }
     },
     "Browse AutoEq headphone corrections" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览 AutoEq 耳机校正"
+          }
+        }
+      }
     },
     "Browsers can’t be excluded: they play through a helper process that macOS shares between apps." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法排除浏览器：它们通过 macOS 在多个应用间共享的辅助进程播放音频。"
+          }
+        }
+      }
     },
     "Built-In" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内置"
+          }
+        }
+      }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
     },
     "Change the band’s color" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改频段颜色"
+          }
+        }
+      }
     },
     "Changes CoreEQ Will Make" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器将进行的更改"
+          }
+        }
+      }
     },
     "Checking for AutoEq updates…" : {
-      "comment" : "AutoEq progress"
+      "comment" : "AutoEq progress",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在检查 AutoEq 更新…"
+          }
+        }
+      }
     },
     "Choose EqualizerAPO" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择 EqualizerAPO"
+          }
+        }
+      }
     },
     "Choose a Target" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择目标曲线"
+          }
+        }
+      }
     },
     "Choose a measurement first" : {
-      "comment" : "Target pop-up, before a measurement"
+      "comment" : "Target pop-up, before a measurement",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先选择测量数据"
+          }
+        }
+      }
     },
     "Choose a model first" : {
-      "comment" : "Measurement pop-up, before a model"
+      "comment" : "Measurement pop-up, before a model",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先选择型号"
+          }
+        }
+      }
     },
     "Choose a model to get started." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择一个型号以开始使用。"
+          }
+        }
+      }
     },
     "Choose an EqualizerAPO (.txt) or CoreEQ (.coreeq, .json) preset file." : {
-      "comment" : "Open panel message"
+      "comment" : "Open panel message",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择 EqualizerAPO（.txt）或均衡器（.coreeq、.json）预设文件。"
+          }
+        }
+      }
     },
     "Choose the sound you want the correction to aim for, and adjust it if you like." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择校正目标声音，并按需调整。"
+          }
+        }
+      }
     },
     "Choose whether CoreEQ pauses while recording" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择均衡器是否在录制时暂停"
+          }
+        }
+      }
     },
     "Clear search" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除搜索"
+          }
+        }
+      }
     },
     "Click “Paste from Clipboard” below, or drop the .txt file onto the preset list." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点按下方的“从剪贴板粘贴”，或将 .txt 文件拖到预设列表中。"
+          }
+        }
+      }
     },
     "Clip every gain beyond ±12 dB, and use a graphic slider where one fits" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将超出 ±12 dB 的增益限制在该范围内，并在适用时使用图形均衡滑块"
+          }
+        }
+      }
     },
     "Collapsed" : {
-      "comment" : "Menu row, for VoiceOver: list hidden"
+      "comment" : "Menu row, for VoiceOver: list hidden",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已收起"
+          }
+        }
+      }
     },
     "Comparison" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对比"
+          }
+        }
+      }
     },
     "Comparison slot" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对比插槽"
+          }
+        }
+      }
     },
     "Compute the trim from the chain, so a boosted preset stays at the loudness it started from" : {
-      "comment" : "Automatic gain help tag, while off"
+      "comment" : "Automatic gain help tag, while off",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根据滤波链计算输出补偿，让提升过的预设保持原有响度"
+          }
+        }
+      }
     },
     "Computing correction in CoreEQ…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器正在计算校正…"
+          }
+        }
+      }
     },
     "Copied" : {
-      "comment" : "Diagnostics: the report was copied"
+      "comment" : "Diagnostics: the report was copied",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制"
+          }
+        }
+      }
     },
     "Copy" : {
-      "comment" : "Diagnostics: copies the report"
+      "comment" : "Diagnostics: copies the report",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制"
+          }
+        }
+      }
     },
     "Copy or Download" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制或下载"
+          }
+        }
+      }
     },
     "Copy the generated filters to the clipboard, or download them as a .txt file." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将生成的滤波器复制到剪贴板，或下载为 .txt 文件。"
+          }
+        }
+      }
     },
     "CoreEQ" : {
-      "comment" : "Menu bar extra heading: the app name\nMenu bar extra tooltip: the app name\nMenu bar icon, for VoiceOver: equalizing"
+      "comment" : "Menu bar extra heading: the app name\nMenu bar extra tooltip: the app name\nMenu bar icon, for VoiceOver: equalizing",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t capture system audio (error %d). Make sure CoreEQ is turned on in System Settings > Privacy & Security > Screen & System Audio Recording." : {
-      "comment" : "Engine failure: the audio tap couldn’t be created; the number is its error code"
+      "comment" : "Engine failure: the audio tap couldn’t be created; the number is its error code",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法采集系统音频（错误 %d）。请前往“系统设置”>“隐私与安全性”>“屏幕与系统音频录制”，允许均衡器访问音频。"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t change its login item. Open System Settings > General > Login Items to change it there." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法更改登录项。请前往“系统设置”>“通用”>“登录项”进行更改。"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t download AutoEq data (HTTP %lld). Try again." : {
-      "comment" : "AutoEq error: the number is the HTTP status code"
+      "comment" : "AutoEq error: the number is the HTTP status code",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法下载 AutoEq 数据（HTTP %lld）。请重试。"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t download AutoEq data from GitHub. Check your internet connection and try again." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法从 GitHub 下载 AutoEq 数据。请检查网络连接并重试。"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t identify its own audio output, so it can’t leave itself out of what it captures. It’s leaving your sound alone and will try again." : {
-      "comment" : "Engine failure: CoreEQ couldn’t find its own audio process"
+      "comment" : "Engine failure: CoreEQ couldn’t find its own audio process",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法识别自己的音频输出，因此无法在采集时排除自身。均衡器不会处理你的声音，并会重试。"
+          }
+        }
+      }
     },
     "CoreEQ couldn’t set up the audio path (error %d)." : {
-      "comment" : "Engine failure: a Core Audio call failed; the number is its error code"
+      "comment" : "Engine failure: a Core Audio call failed; the number is its error code",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器无法设置音频路径（错误 %d）。"
+          }
+        }
+      }
     },
     "CoreEQ equalizes the sound you hear. Nothing is recorded, stored, or sent anywhere." : {
-      "comment" : "Audio permission explanation, when it’s granted"
+      "comment" : "Audio permission explanation, when it’s granted",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器会调整你听到的声音。不会录制、存储或发送任何内容。"
+          }
+        }
+      }
     },
     "CoreEQ hasn’t needed the permission yet, so there’s nothing to report." : {
-      "comment" : "Audio permission explanation, before CoreEQ has asked"
+      "comment" : "Audio permission explanation, before CoreEQ has asked",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器尚未请求此权限，因此没有可报告的信息。"
+          }
+        }
+      }
     },
     "CoreEQ holds up to %lld parametric bands" : {
-      "comment" : "Add Band help tag, when the band limit is reached"
+      "comment" : "Add Band help tag, when the band limit is reached",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器最多支持 %lld 个参数均衡频段"
+          }
+        }
+      }
     },
     "CoreEQ isn’t allowed to reach the sound" : {
-      "comment" : "Permission heading, after the permission was refused"
+      "comment" : "Permission heading, after the permission was refused",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器未获准访问音频"
+          }
+        }
+      }
     },
     "CoreEQ isn’t receiving any audio, so it’s leaving your sound alone instead of replacing it." : {
-      "comment" : "Engine failure: sound is playing but none reaches CoreEQ"
+      "comment" : "Engine failure: sound is playing but none reaches CoreEQ",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器没有收到音频，因此不会替换你的声音。"
+          }
+        }
+      }
     },
     "CoreEQ isn’t receiving any audio, so it’s leaving your sound alone instead of replacing it. This is what a refused permission looks like." : {
-      "comment" : "Engine failure, when the permission seems to be refused"
+      "comment" : "Engine failure, when the permission seems to be refused",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器没有收到音频，因此不会替换你的声音。这通常表示访问权限被拒绝。"
+          }
+        }
+      }
     },
     "CoreEQ isn’t running" : {
-      "comment" : "Warning icon, for VoiceOver"
+      "comment" : "Warning icon, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器未运行"
+          }
+        }
+      }
     },
     "CoreEQ isn’t running." : {
-      "comment" : "Engine status"
+      "comment" : "Engine status",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器未运行。"
+          }
+        }
+      }
     },
     "CoreEQ needs to reach the sound to change it" : {
-      "comment" : "Permission heading, before macOS has asked"
+      "comment" : "Permission heading, before macOS has asked",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器需要访问音频才能调整声音"
+          }
+        }
+      }
     },
     "CoreEQ, equalizer off" : {
-      "comment" : "Menu bar icon, for VoiceOver: the equalizer is turned off"
+      "comment" : "Menu bar icon, for VoiceOver: the equalizer is turned off",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器，均衡已关闭"
+          }
+        }
+      }
     },
     "CoreEQ, not equalizing" : {
-      "comment" : "Menu bar icon, for VoiceOver: audio isn’t reaching CoreEQ"
+      "comment" : "Menu bar icon, for VoiceOver: audio isn’t reaching CoreEQ",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器，未在进行均衡"
+          }
+        }
+      }
     },
     "CoreEQ, paused while recording" : {
-      "comment" : "Menu bar icon, for VoiceOver: stepped aside for a screen recording"
+      "comment" : "Menu bar icon, for VoiceOver: stepped aside for a screen recording",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器，录制时已暂停"
+          }
+        }
+      }
     },
     "CoreEQ…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器…"
+          }
+        }
+      }
     },
     "Couldn’t Export Preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法导出预设"
+          }
+        }
+      }
     },
     "Couldn’t Import Preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法导入预设"
+          }
+        }
+      }
     },
     "Couldn’t Load the AutoEq Catalog" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法载入 AutoEq 目录"
+          }
+        }
+      }
     },
     "Create, find, or import a preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建、查找或导入预设"
+          }
+        }
+      }
     },
     "Data from AutoEq · MIT, Jaakko Pasanen" : {
-      "comment" : "AutoEq catalog credit: the data’s source and license"
+      "comment" : "AutoEq catalog credit: the data’s source and license",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据来自 AutoEq · MIT，Jaakko Pasanen"
+          }
+        }
+      }
     },
     "Deep bass, a dip around 500 Hz, and crisp highs, for synth-driven music." : {
-      "comment" : "Built-in preset description: Electronic"
+      "comment" : "Built-in preset description: Electronic",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深沉的低音、约 500 Hz 的衰减和清晰的高音，适合合成器主导的音乐。"
+          }
+        }
+      }
     },
     "Delete" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
+        }
+      }
     },
     "Delete “%@”?" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要删除“%@”吗？"
+          }
+        }
+      }
     },
     "Details" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "详细信息"
+          }
+        }
+      }
     },
     "Diagnostics" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断"
+          }
+        }
+      }
     },
     "Discard changes and return to the saved preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "放弃更改并恢复已存储的预设"
+          }
+        }
+      }
     },
     "Done" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
     },
     "Downloading the AutoEq catalog…" : {
-      "comment" : "AutoEq progress"
+      "comment" : "AutoEq progress",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在下载 AutoEq 目录…"
+          }
+        }
+      }
     },
     "Drag or scroll to set; double-click the knob to return to 0 dB" : {
-      "comment" : "Gain knob help tag"
+      "comment" : "Gain knob help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拖动或滚动进行设置；双击旋钮可恢复为 0 dB"
+          }
+        }
+      }
     },
     "Drag or scroll to set; double-click the knob to return to 1 kHz" : {
-      "comment" : "Frequency knob help tag"
+      "comment" : "Frequency knob help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拖动或滚动进行设置；双击旋钮可恢复为 1 kHz"
+          }
+        }
+      }
     },
     "Drag or scroll to set; double-click the knob to return to the default width" : {
-      "comment" : "Q knob help tag"
+      "comment" : "Q knob help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拖动或滚动进行设置；双击旋钮可恢复为默认带宽"
+          }
+        }
+      }
     },
     "Drag to set; double-click to return to the preset’s value" : {
-      "comment" : "Preamp slider help tag"
+      "comment" : "Preamp slider help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拖动进行设置；双击可恢复为预设值"
+          }
+        }
+      }
     },
     "Dropped" : {
-      "comment" : "Import sheet status: filter not imported"
+      "comment" : "Import sheet status: filter not imported",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已丢弃"
+          }
+        }
+      }
     },
     "Duplicate" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制"
+          }
+        }
+      }
     },
     "Edit as Filter" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作为滤波器编辑"
+          }
+        }
+      }
     },
     "Edited" : {
-      "comment" : "Preset row, for VoiceOver: has unsaved changes"
+      "comment" : "Preset row, for VoiceOver: has unsaved changes",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已编辑"
+          }
+        }
+      }
     },
     "Editor" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑器"
+          }
+        }
+      }
     },
     "Effect on the Response" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对频响的影响"
+          }
+        }
+      }
     },
     "Equalizer" : {
-      "comment" : "Menu bar extra switch, for VoiceOver"
+      "comment" : "Menu bar extra switch, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器"
+          }
+        }
+      }
     },
     "Equalizer Unavailable" : {
-      "comment" : "Menu bar extra row: CoreEQ couldn’t start equalizing"
+      "comment" : "Menu bar extra row: CoreEQ couldn’t start equalizing",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器不可用"
+          }
+        }
+      }
     },
     "Equalizer unavailable" : {
-      "comment" : "Warning icon, for VoiceOver"
+      "comment" : "Warning icon, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器不可用"
+          }
+        }
+      }
     },
     "EqualizerAPO…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EqualizerAPO…"
+          }
+        }
+      }
     },
     "Equalizes everything you hear, with no driver and nothing left behind." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡你听到的所有声音，无需驱动程序，也不会留下任何东西。"
+          }
+        }
+      }
     },
     "Equalizing the sound on “%@”." : {
-      "comment" : "Engine status: the output device being equalized"
+      "comment" : "Engine status: the output device being equalized",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在对“%@”的声音进行均衡。"
+          }
+        }
+      }
     },
     "Everything above 1 kHz softened, for harsh or sibilant recordings." : {
-      "comment" : "Built-in preset description: Treble Reducer"
+      "comment" : "Built-in preset description: Treble Reducer",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "柔化 1 kHz 以上的声音，适合刺耳或齿音明显的录音。"
+          }
+        }
+      }
     },
     "Exclude %@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排除 %@"
+          }
+        }
+      }
     },
     "Exclusions" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排除项"
+          }
+        }
+      }
     },
     "Expanded" : {
-      "comment" : "Menu row, for VoiceOver: list shown"
+      "comment" : "Menu row, for VoiceOver: list shown",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已展开"
+          }
+        }
+      }
     },
     "Export Preset" : {
-      "comment" : "Save panel title"
+      "comment" : "Save panel title",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出预设"
+          }
+        }
+      }
     },
     "Extra change from clipping" : {
-      "comment" : "Import sheet: what clipping to ±12 dB adds to the effect"
+      "comment" : "Import sheet: what clipping to ±12 dB adds to the effect",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "限制增益带来的额外变化"
+          }
+        }
+      }
     },
     "Filter %lld · %@, %@ Hz, Q %@" : {
       "comment" : "Import sheet: which filter of the file, its type, frequency, and Q",
@@ -715,371 +1848,1285 @@
             "state" : "new",
             "value" : "Filter %1$lld · %2$@, %3$@ Hz, Q %4$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "滤波器 %lld · %@，%@ Hz，Q 值 %@"
+          }
         }
       }
     },
     "First %lld matches" : {
-      "comment" : "AutoEq catalog search: only the first page of matches is shown"
+      "comment" : "AutoEq catalog search: only the first page of matches is shown",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前 %lld 个匹配项"
+          }
+        }
+      }
     },
     "Frequency" : {
-      "comment" : "Band list column"
+      "comment" : "Band list column",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频率"
+          }
+        }
+      }
     },
     "Frequency response" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频率响应"
+          }
+        }
+      }
     },
     "Fuller low end and a brighter, more present top, for acoustic guitar and unplugged recordings." : {
-      "comment" : "Built-in preset description: Acoustic"
+      "comment" : "Built-in preset description: Acoustic",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更饱满的低频和更明亮突出的高频，适合原声吉他和不插电录音。"
+          }
+        }
+      }
     },
     "Gain" : {
-      "comment" : "Band list column"
+      "comment" : "Band list column",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增益"
+          }
+        }
+      }
     },
     "General" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用"
+          }
+        }
+      }
     },
     "GitHub is limiting downloads. Try again later." : {
-      "comment" : "AutoEq error: GitHub refused because of too many requests"
+      "comment" : "AutoEq error: GitHub refused because of too many requests",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub 限制了下载请求。请稍后重试。"
+          }
+        }
+      }
     },
     "Granted" : {
-      "comment" : "Audio permission status"
+      "comment" : "Audio permission status",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已授权"
+          }
+        }
+      }
     },
     "Graphic" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图形均衡"
+          }
+        }
+      }
     },
     "Green" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绿色"
+          }
+        }
+      }
     },
     "High Pass" : {
-      "comment" : "Filter type"
+      "comment" : "Filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高通"
+          }
+        }
+      }
     },
     "High Shelf" : {
-      "comment" : "Filter type"
+      "comment" : "Filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高架"
+          }
+        }
+      }
     },
     "Holding the audio device keeps a Mac awake. CoreEQ lets go after half a minute of silence and takes it back the moment something plays. Turn this off if your audio misbehaves." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保持音频设备运行会让 Mac 无法休眠。均衡器会在静音半分钟后释放设备，并在有声音播放时立即重新接管。如果音频运行异常，请关闭此项。"
+          }
+        }
+      }
     },
     "Import" : {
-      "comment" : "Import sheet: the import’s effect"
+      "comment" : "Import sheet: the import’s effect",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入"
+          }
+        }
+      }
     },
     "Import Preset" : {
-      "comment" : "Open panel title"
+      "comment" : "Open panel title",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入预设"
+          }
+        }
+      }
     },
     "Import Preset?" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要导入预设吗？"
+          }
+        }
+      }
     },
     "Import Preset…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入预设…"
+          }
+        }
+      }
     },
     "Import adjustments" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入调整"
+          }
+        }
+      }
     },
     "Import and Clip to ±12 dB" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入并限制在 ±12 dB"
+          }
+        }
+      }
     },
     "Import by Hand…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动导入…"
+          }
+        }
+      }
     },
     "Import from AutoEq by Hand" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从 AutoEq 手动导入"
+          }
+        }
+      }
     },
     "Import from AutoEq by hand" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从 AutoEq 手动导入"
+          }
+        }
+      }
     },
     "Import into CoreEQ" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入到均衡器"
+          }
+        }
+      }
     },
     "Import with Adjustments" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "调整后导入"
+          }
+        }
+      }
     },
     "Imported Preset" : {
-      "comment" : "Name of an imported preset with no name"
+      "comment" : "Name of an imported preset with no name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已导入的预设"
+          }
+        }
+      }
     },
     "Indigo" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "靛蓝色"
+          }
+        }
+      }
     },
     "Keep every value CoreEQ can represent, exactly as written" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留均衡器可表示的所有数值，完全按原文导入"
+          }
+        }
+      }
     },
     "Keeps screen recordings from capturing the sound twice" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "避免屏幕录制重复采集声音"
+          }
+        }
+      }
     },
     "Kept Beyond the Graphic Range" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "超出图形均衡范围的值已保留"
+          }
+        }
+      }
     },
     "Kept exact" : {
-      "comment" : "Import sheet status: value imported unchanged"
+      "comment" : "Import sheet status: value imported unchanged",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已原样保留"
+          }
+        }
+      }
     },
     "Last selection, not playing." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次选择的预设，当前未播放。"
+          }
+        }
+      }
     },
     "Leaving apps out needs macOS 26 or later. On this Mac, CoreEQ equalizes every app." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排除应用需要 macOS 26 或更新版本。在这台 Mac 上，均衡器会处理所有应用的声音。"
+          }
+        }
+      }
     },
     "Less weight below 500 Hz, for boomy rooms or bass-heavy headphones." : {
-      "comment" : "Built-in preset description: Bass Reducer"
+      "comment" : "Built-in preset description: Bass Reducer",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "减弱 500 Hz 以下的低频，适合低频浑浊的房间或低音过重的耳机。"
+          }
+        }
+      }
     },
     "Lets the Mac sleep on schedule while CoreEQ is running" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许均衡器运行时 Mac 按计划休眠"
+          }
+        }
+      }
     },
     "Loading correction…" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在载入校正…"
+          }
+        }
+      }
     },
     "Low Pass" : {
-      "comment" : "Filter type"
+      "comment" : "Filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低通"
+          }
+        }
+      }
     },
     "Low Shelf" : {
-      "comment" : "Filter type"
+      "comment" : "Filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低架"
+          }
+        }
+      }
     },
     "Low bass trimmed and the voice range lifted, so singers and speakers stand out." : {
-      "comment" : "Built-in preset description: Vocal Booster"
+      "comment" : "Built-in preset description: Vocal Booster",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收敛低频并提升人声范围，让歌声和演讲更突出。"
+          }
+        }
+      }
     },
     "Measurement source" : {
-      "comment" : "Measurement pop-up, for VoiceOver"
+      "comment" : "Measurement pop-up, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测量来源"
+          }
+        }
+      }
     },
     "Measurement source:" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测量来源："
+          }
+        }
+      }
     },
     "Mid" : {
-      "comment" : "Quick EQ slider: middle frequencies"
+      "comment" : "Quick EQ slider: middle frequencies",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中音"
+          }
+        }
+      }
     },
     "Midrange forward, bass and treble lighter, so vocals lead." : {
-      "comment" : "Built-in preset description: Pop"
+      "comment" : "Built-in preset description: Pop",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "突出中音，减弱低音和高音，让人声更鲜明。"
+          }
+        }
+      }
     },
     "More bass and less treble, for laptop and small speakers that sound thin or harsh." : {
-      "comment" : "Built-in preset description: Small Speakers"
+      "comment" : "Built-in preset description: Small Speakers",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增强低音并减弱高音，适合声音单薄或刺耳的笔记本和小型扬声器。"
+          }
+        }
+      }
     },
     "More bass and lower midrange, softer treble: a darker, warmer sound." : {
-      "comment" : "Built-in preset description: Deep"
+      "comment" : "Built-in preset description: Deep",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增强低音和中低音，柔化高音，带来更厚重温暖的声音。"
+          }
+        }
+      }
     },
     "More body and a brighter, more present top, for solo piano." : {
-      "comment" : "Built-in preset description: Piano"
+      "comment" : "Built-in preset description: Piano",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增加饱满度并突出明亮的高音，适合钢琴独奏。"
+          }
+        }
+      }
     },
     "More brightness above 1 kHz, most around 8 kHz." : {
-      "comment" : "Built-in preset description: Treble Booster"
+      "comment" : "Built-in preset description: Treble Booster",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提升 1 kHz 以上的明亮度，在 8 kHz 左右效果最明显。"
+          }
+        }
+      }
     },
     "More deep bass and high treble, to keep music full at low volume." : {
-      "comment" : "Built-in preset description: Loudness"
+      "comment" : "Built-in preset description: Loudness",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增强深沉低音和高音，让低音量播放时音乐依然饱满。"
+          }
+        }
+      }
     },
     "More weight below 250 Hz, held all the way down to 20 Hz. The rest is untouched." : {
-      "comment" : "Built-in preset description: Bass Booster"
+      "comment" : "Built-in preset description: Bass Booster",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "增强 250 Hz 以下的低频，最低延伸至 20 Hz，其余频段保持不变。"
+          }
+        }
+      }
     },
     "My Presets" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的预设"
+          }
+        }
+      }
     },
     "New Preset" : {
-      "comment" : "Name of a newly created preset"
+      "comment" : "Name of a newly created preset",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新建预设"
+          }
+        }
+      }
     },
     "No Bands" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有频段"
+          }
+        }
+      }
     },
     "No Models" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有型号"
+          }
+        }
+      }
     },
     "No Output Device" : {
-      "comment" : "Shown when the Mac has no output"
+      "comment" : "Shown when the Mac has no output",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有输出设备"
+          }
+        }
+      }
     },
     "No Output Devices" : {
-      "comment" : "Menu bar extra row: the Mac has no output device"
+      "comment" : "Menu bar extra row: the Mac has no output device",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有输出设备"
+          }
+        }
+      }
     },
     "No Results for “%@”" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有找到“%@”的结果"
+          }
+        }
+      }
     },
     "No apps are excluded." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有排除任何应用。"
+          }
+        }
+      }
     },
     "No audible change." : {
-      "comment" : "Import sheet: the response is unchanged"
+      "comment" : "Import sheet: the response is unchanged",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有可听出的变化。"
+          }
+        }
+      }
     },
     "No change: the sound exactly as it arrives." : {
-      "comment" : "Built-in preset description: Flat"
+      "comment" : "Built-in preset description: Flat",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不作调整：保持声音原样。"
+          }
+        }
+      }
     },
     "No correction target matches this model." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有适用于此型号的校正目标。"
+          }
+        }
+      }
     },
     "No matches" : {
-      "comment" : "AutoEq catalog search: nothing found"
+      "comment" : "AutoEq catalog search: nothing found",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有匹配项"
+          }
+        }
+      }
     },
     "None" : {
-      "comment" : "Pop-up value, for VoiceOver"
+      "comment" : "Pop-up value, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无"
+          }
+        }
+      }
     },
     "Not Equalizing" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未进行均衡"
+          }
+        }
+      }
     },
     "Not Receiving Audio" : {
-      "comment" : "Menu bar extra row: sound is playing but none reaches CoreEQ"
+      "comment" : "Menu bar extra row: sound is playing but none reaches CoreEQ",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未收到音频"
+          }
+        }
+      }
     },
     "Not asked yet" : {
-      "comment" : "Audio permission status"
+      "comment" : "Audio permission status",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未询问"
+          }
+        }
+      }
     },
     "Not granted" : {
-      "comment" : "Audio permission status"
+      "comment" : "Audio permission status",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未授权"
+          }
+        }
+      }
     },
     "Not measurable: the correction has a value CoreEQ can’t render." : {
-      "comment" : "Import sheet: why the change to the response can’t be measured"
+      "comment" : "Import sheet: why the change to the response can’t be measured",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法测量：校正值超出均衡器的呈现范围。"
+          }
+        }
+      }
     },
     "Not running" : {
-      "comment" : "Audio permission status: CoreEQ hasn’t needed it yet"
+      "comment" : "Audio permission status: CoreEQ hasn’t needed it yet",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未运行"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
     },
     "Off" : {
-      "comment" : "Switch state, for VoiceOver"
+      "comment" : "Switch state, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关"
+          }
+        }
+      }
     },
     "On" : {
-      "comment" : "Band list column: band turned on\nSwitch state, for VoiceOver"
+      "comment" : "Band list column: band turned on\nSwitch state, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开"
+          }
+        }
+      }
     },
     "Only targets compatible with this measurement source, rig, and form are available" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅显示与此测量来源、设备和形式兼容的目标曲线"
+          }
+        }
+      }
     },
     "Open CoreEQ at login" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开均衡器"
+          }
+        }
+      }
     },
     "Open CoreEQ settings" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开均衡器设置"
+          }
+        }
+      }
     },
     "Open Equalizer" : {
-      "comment" : "Menu item: shows the main window"
+      "comment" : "Menu item: shows the main window",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开均衡器"
+          }
+        }
+      }
     },
     "Open System Settings" : {
-      "comment" : "Button: opens Privacy & Security in System Settings"
+      "comment" : "Button: opens Privacy & Security in System Settings",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开系统设置"
+          }
+        }
+      }
     },
     "Open autoeq.app" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开 autoeq.app"
+          }
+        }
+      }
     },
     "Open autoeq.app in Browser" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在浏览器中打开 autoeq.app"
+          }
+        }
+      }
     },
     "Open the diagnostics report" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开诊断报告"
+          }
+        }
+      }
     },
     "Orange" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "橙色"
+          }
+        }
+      }
     },
     "Output" : {
-      "comment" : "Menu bar extra section: output device"
+      "comment" : "Menu bar extra section: output device",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出"
+          }
+        }
+      }
     },
     "Output device" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出设备"
+          }
+        }
+      }
     },
     "Output trim" : {
-      "comment" : "Import sheet: the adjusted value is the preamp"
+      "comment" : "Import sheet: the adjusted value is the preamp",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出补偿"
+          }
+        }
+      }
     },
     "Output trim applied after the whole chain; use it to give back the headroom a boosted preset takes" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出补偿应用于整个滤波链之后，可恢复提升预设占用的余量"
+          }
+        }
+      }
     },
     "Parametric" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "参数均衡"
+          }
+        }
+      }
     },
     "Paste Preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粘贴预设"
+          }
+        }
+      }
     },
     "Paste a preset from the clipboard (⌘V)" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从剪贴板粘贴预设（⌘V）"
+          }
+        }
+      }
     },
     "Paste from Clipboard" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从剪贴板粘贴"
+          }
+        }
+      }
     },
     "Pause while recording system audio" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "录制系统音频时暂停"
+          }
+        }
+      }
     },
     "Paused While Recording" : {
-      "comment" : "Heading and menu bar extra row: CoreEQ stepped aside for a screen recording"
+      "comment" : "Heading and menu bar extra row: CoreEQ stepped aside for a screen recording",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "录制期间已暂停"
+          }
+        }
+      }
     },
     "Pink" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粉色"
+          }
+        }
+      }
     },
     "Play Preview" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "播放试听"
+          }
+        }
+      }
     },
     "Playing preview" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在试听"
+          }
+        }
+      }
     },
     "Point at a handle to read its value; drag it to adjust; double-click to reset it" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "指向控制点可查看数值；拖动可调整；双击可重置"
+          }
+        }
+      }
     },
     "Preamp" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前级增益"
+          }
+        }
+      }
     },
     "Preamp: %@" : {
-      "comment" : "Import alert: the preset’s output trim, such as “Preamp: −6.0 dB”"
+      "comment" : "Import alert: the preset’s output trim, such as “Preamp: −6.0 dB”",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前级增益：%@"
+          }
+        }
+      }
     },
     "Preparing the AutoEq catalog…" : {
-      "comment" : "AutoEq progress"
+      "comment" : "AutoEq progress",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在准备 AutoEq 目录…"
+          }
+        }
+      }
     },
     "Preset" : {
-      "comment" : "Menu bar extra section: active preset"
+      "comment" : "Menu bar extra section: active preset",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设"
+          }
+        }
+      }
     },
     "Preset name" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设名称"
+          }
+        }
+      }
     },
     "Preview follows your selection." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "试听会随你的选择而变化。"
+          }
+        }
+      }
     },
     "Preview response curve" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "试听频率响应曲线"
+          }
+        }
+      }
     },
     "Punchy low end, bright upper treble, and slightly scooped mids." : {
-      "comment" : "Built-in preset description: Rock"
+      "comment" : "Built-in preset description: Rock",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有力的低频、明亮的高音和略微收敛的中音。"
+          }
+        }
+      }
     },
     "Purple" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫色"
+          }
+        }
+      }
     },
     "Q" : {
-      "comment" : "Band list column: the band’s width"
+      "comment" : "Band list column: the band’s width",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Q 值"
+          }
+        }
+      }
     },
     "Quick EQ" : {
-      "comment" : "Menu bar extra section: bass, mid, and treble controls"
+      "comment" : "Menu bar extra section: bass, mid, and treble controls",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速均衡"
+          }
+        }
+      }
     },
     "Quit CoreEQ" : {
-      "comment" : "Menu item"
+      "comment" : "Menu item",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出均衡器"
+          }
+        }
+      }
     },
     "Quit This Copy" : {
-      "comment" : "Alert button"
+      "comment" : "Alert button",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出此副本"
+          }
+        }
+      }
     },
     "Quit the Other Copy" : {
-      "comment" : "Alert button"
+      "comment" : "Alert button",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出另一个副本"
+          }
+        }
+      }
     },
     "Red" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "红色"
+          }
+        }
+      }
     },
     "Refresh" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新"
+          }
+        }
+      }
     },
     "Relaunch CoreEQ" : {
-      "comment" : "Button: quits and reopens CoreEQ"
+      "comment" : "Button: quits and reopens CoreEQ",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新启动均衡器"
+          }
+        }
+      }
     },
     "Release Notes" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发行说明"
+          }
+        }
+      }
     },
     "Release the audio device when nothing is playing" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有声音播放时释放音频设备"
+          }
+        }
+      }
     },
     "Remove" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除"
+          }
+        }
+      }
     },
     "Remove Band" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除频段"
+          }
+        }
+      }
     },
     "Remove band %lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除频段 %lld"
+          }
+        }
+      }
     },
     "Remove this band" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除此频段"
+          }
+        }
+      }
     },
     "Rename" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名"
+          }
+        }
+      }
     },
     "Requires macOS 26" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要 macOS 26"
+          }
+        }
+      }
     },
     "Reset Band" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置频段"
+          }
+        }
+      }
     },
     "Reset Gain" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置增益"
+          }
+        }
+      }
     },
     "Reset to Preset" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复为预设"
+          }
+        }
+      }
     },
     "Response changes by up to %@ dB (%@ dB RMS)." : {
       "comment" : "AutoEq catalog notice: the largest and the average change",
@@ -1089,17 +3136,45 @@
             "state" : "new",
             "value" : "Response changes by up to %1$@ dB (%2$@ dB RMS)."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "频响变化最高为 %@ dB（%@ dB RMS）。"
+          }
         }
       }
     },
     "Revert" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还原"
+          }
+        }
+      }
     },
     "Rumble cut and the speech range lifted, for podcasts and audiobooks." : {
-      "comment" : "Built-in preset description: Spoken Word"
+      "comment" : "Built-in preset description: Spoken Word",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削弱隆隆低频并提升语音范围，适合播客和有声书。"
+          }
+        }
+      }
     },
     "Save Changes" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存更改"
+          }
+        }
+      }
     },
     "Saving will adjust %lld values to fit CoreEQ’s limits." : {
       "comment" : "AutoEq catalog notice: how many values importing would change",
@@ -1121,143 +3196,502 @@
               }
             }
           }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "保存时将调整 %lld 个值以符合均衡器的限制。"
+                }
+              }
+            }
+          }
         }
       }
     },
     "Screen recordings capture both your apps’ sound and CoreEQ’s equalized copy, which sounds doubled. CoreEQ steps aside until the recording stops." : {
-      "comment" : "Why CoreEQ pauses while a screen recording captures system audio"
+      "comment" : "Why CoreEQ pauses while a screen recording captures system audio",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕录制会同时采集应用声音和均衡器处理后的声音，造成声音重叠。均衡器会在录制期间暂停处理。"
+          }
+        }
+      }
     },
     "Search" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索"
+          }
+        }
+      }
     },
     "Search for your headphone or earphone model in your browser." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在浏览器中搜索你的耳机型号。"
+          }
+        }
+      }
     },
     "Search headphones" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索耳机"
+          }
+        }
+      }
     },
     "Set automatically while Auto is on; drag to set it by hand" : {
-      "comment" : "Preamp slider help tag, while automatic gain is on"
+      "comment" : "Preamp slider help tag, while automatic gain is on",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启“自动”时自动设置；关闭后可拖动手动调整"
+          }
+        }
+      }
     },
     "Settings" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        }
+      }
     },
     "Settings…" : {
-      "comment" : "Menu item: opens CoreEQ’s Settings window"
+      "comment" : "Menu item: opens CoreEQ’s Settings window",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置…"
+          }
+        }
+      }
     },
     "Show Diagnostics" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示诊断信息"
+          }
+        }
+      }
     },
     "Source Code" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "源代码"
+          }
+        }
+      }
     },
     "Start CoreEQ automatically, in the menu bar, when you log in" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时在菜单栏中自动启动均衡器"
+          }
+        }
+      }
     },
     "Strong low bass and forward upper mids, for club music." : {
-      "comment" : "Built-in preset description: Dance"
+      "comment" : "Built-in preset description: Dance",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "强劲的低音和突出的中高音，适合俱乐部音乐。"
+          }
+        }
+      }
     },
     "System Audio Not Allowed" : {
-      "comment" : "Menu bar extra row: CoreEQ couldn’t capture system audio"
+      "comment" : "Menu bar extra row: CoreEQ couldn’t capture system audio",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未获准访问系统音频"
+          }
+        }
+      }
     },
     "System Audio Recording" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕与系统音频录制"
+          }
+        }
+      }
     },
     "System-wide equalizer" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全局均衡器"
+          }
+        }
+      }
     },
     "Target curve" : {
-      "comment" : "Target pop-up, for VoiceOver"
+      "comment" : "Target pop-up, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目标曲线"
+          }
+        }
+      }
     },
     "Target curve:" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目标曲线："
+          }
+        }
+      }
     },
     "Teal" : {
-      "comment" : "Band color name"
+      "comment" : "Band color name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝绿色"
+          }
+        }
+      }
     },
     "The AutoEq catalog is empty." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq 目录为空。"
+          }
+        }
+      }
     },
     "The CoreEQ preset is damaged and can’t be read." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器预设已损坏，无法读取。"
+          }
+        }
+      }
     },
     "The audio device CoreEQ built around “%@” reported no output channels, so there’s nowhere to send the equalized sound." : {
-      "comment" : "Engine failure: the output device has no channels"
+      "comment" : "Engine failure: the output device has no channels",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器基于“%@”创建的音频设备未报告任何输出声道，因此无法输出均衡后的声音。"
+          }
+        }
+      }
     },
     "The change can’t be measured." : {
-      "comment" : "AutoEq catalog notice: the change to the response is unknown"
+      "comment" : "AutoEq catalog notice: the change to the response is unknown",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法测量此项变化。"
+          }
+        }
+      }
     },
     "The clipboard doesn’t contain a preset." : {
-      "comment" : "Paste Preset error message"
+      "comment" : "Paste Preset error message",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剪贴板中没有预设。"
+          }
+        }
+      }
     },
     "The correction uses filters CoreEQ can’t apply (%@)." : {
-      "comment" : "AutoEq error: the filter type code follows in parentheses"
+      "comment" : "AutoEq error: the filter type code follows in parentheses",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校正使用了均衡器无法应用的滤波器（%@）。"
+          }
+        }
+      }
     },
     "The file is too large to be a preset." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件过大，无法作为预设导入。"
+          }
+        }
+      }
     },
     "The file isn’t a text preset." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此文件不是文本预设。"
+          }
+        }
+      }
     },
     "The other copy is at:\n%@" : {
-      "comment" : "Alert message: where the other copy of CoreEQ is installed"
+      "comment" : "Alert message: where the other copy of CoreEQ is installed",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "另一个副本位于：\n%@"
+          }
+        }
+      }
     },
     "The preset contains a filter type CoreEQ doesn’t support." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设包含均衡器不支持的滤波器类型。"
+          }
+        }
+      }
     },
     "The preset doesn’t contain any filters CoreEQ can read." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设中没有均衡器可读取的滤波器。"
+          }
+        }
+      }
     },
     "The preset is empty." : {
-      "comment" : "Import error"
+      "comment" : "Import error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设为空。"
+          }
+        }
+      }
     },
     "The preset “%@” no longer exists." : {
-      "comment" : "Export error"
+      "comment" : "Export error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预设“%@”已不存在。"
+          }
+        }
+      }
     },
     "The system audio arrived in a format CoreEQ can’t equalize: it needs 32-bit floating-point samples." : {
-      "comment" : "Engine failure: the audio tap delivered an unsupported sample format"
+      "comment" : "Engine failure: the audio tap delivered an unsupported sample format",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统音频的格式无法由均衡器处理：需要 32 位浮点采样。"
+          }
+        }
+      }
     },
     "The trim is computed from the chain; turn this off to set it by hand" : {
-      "comment" : "Automatic gain help tag, while on"
+      "comment" : "Automatic gain help tag, while on",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出补偿根据滤波链计算；关闭此项可手动设置"
+          }
+        }
+      }
     },
     "There’s no published correction CoreEQ supports for this measurement." : {
-      "comment" : "AutoEq error"
+      "comment" : "AutoEq error",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有适用于此测量数据且受均衡器支持的已发布校正。"
+          }
+        }
+      }
     },
     "These are kept exactly, as parametric bands beyond the sliders’ ±12 dB range. You can clip their gains to ±12 dB instead." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这些参数均衡频段超出滑块的 ±12 dB 范围，但已按原样保留。也可以将增益限制在 ±12 dB。"
+          }
+        }
+      }
     },
     "Treble" : {
-      "comment" : "Quick EQ slider: high frequencies"
+      "comment" : "Quick EQ slider: high frequencies",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高音"
+          }
+        }
+      }
     },
     "Try Again" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
+          }
+        }
+      }
     },
     "Turn on CoreEQ under Screen & System Audio Recording, then choose Quit & Reopen when macOS asks." : {
-      "comment" : "Permission instructions. “Quit & Reopen” is the button macOS shows; use its translation."
+      "comment" : "Permission instructions. “Quit & Reopen” is the button macOS shows; use its translation.",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在“屏幕与系统音频录制”中开启均衡器，然后在 macOS 询问时选择“退出并重新打开”。"
+          }
+        }
+      }
     },
     "Turn on CoreEQ under Screen & System Audio Recording. If it’s already on, turn it off and on again: an update gives CoreEQ a new signature, and macOS keeps the old entry. Then relaunch CoreEQ." : {
-      "comment" : "Permission instructions, when macOS can’t say whether it was refused"
+      "comment" : "Permission instructions, when macOS can’t say whether it was refused",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在“屏幕与系统音频录制”中开启均衡器。如果已经开启，请先关闭再重新开启：更新会为均衡器生成新的签名，而 macOS 仍保留旧记录。然后重新启动均衡器。"
+          }
+        }
+      }
     },
     "Turn the equalizer off" : {
-      "comment" : "Power button help tag"
+      "comment" : "Power button help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭均衡器"
+          }
+        }
+      }
     },
     "Turn the equalizer on" : {
-      "comment" : "Power button help tag"
+      "comment" : "Power button help tag",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启均衡器"
+          }
+        }
+      }
     },
     "Two copies would each silence the other’s sound, so only one can run." : {
-      "comment" : "Alert message: why two copies of CoreEQ can’t run together"
+      "comment" : "Alert message: why two copies of CoreEQ can’t run together",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同时运行两个副本会让它们互相静音，因此只能运行一个。"
+          }
+        }
+      }
     },
     "Two versions of this preset; switch between them to compare" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此预设有两个版本；切换版本进行比较"
+          }
+        }
+      }
     },
     "Type" : {
-      "comment" : "Band list column: filter type"
+      "comment" : "Band list column: filter type",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "类型"
+          }
+        }
+      }
     },
     "Unknown Device" : {
-      "comment" : "An output device without a name"
+      "comment" : "An output device without a name",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知设备"
+          }
+        }
+      }
     },
     "Unsupported Output Device" : {
-      "comment" : "Menu bar extra row: CoreEQ can’t equalize this device"
+      "comment" : "Menu bar extra row: CoreEQ can’t equalize this device",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支持的输出设备"
+          }
+        }
+      }
     },
     "Up to %@ dB difference, %@ dB RMS, across 20 Hz–20 kHz." : {
       "comment" : "Import sheet: the largest and the average change to the response",
@@ -1267,50 +3701,164 @@
             "state" : "new",
             "value" : "Up to %1$@ dB difference, %2$@ dB RMS, across 20 Hz–20 kHz."
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 20 Hz–20 kHz 范围内，差异最高为 %@ dB，均方根为 %@ dB。"
+          }
         }
       }
     },
     "Using a saved catalog. Couldn’t check for updates." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在使用已保存的目录。无法检查更新。"
+          }
+        }
+      }
     },
     "Version %@" : {
-      "comment" : "About: the app’s version number"
+      "comment" : "About: the app’s version number",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本 %@"
+          }
+        }
+      }
     },
     "Waiting for permission to reach the sound." : {
-      "comment" : "Engine status"
+      "comment" : "Engine status",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在等待音频访问权限。"
+          }
+        }
+      }
     },
     "Waiting for the audio permission" : {
-      "comment" : "Warning icon, for VoiceOver"
+      "comment" : "Warning icon, for VoiceOver",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在等待音频权限"
+          }
+        }
+      }
     },
     "Warm bass, slightly recessed mids, and an airy top, for small-group recordings." : {
-      "comment" : "Built-in preset description: Jazz"
+      "comment" : "Built-in preset description: Jazz",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "温暖的低音、略微收敛的中音和通透的高音，适合小型乐队录音。"
+          }
+        }
+      }
     },
     "What CoreEQ sees on this Mac. Include it with a bug report: it answers most questions about audio problems. It names your audio devices, your presets, and any apps you’ve excluded, and contains nothing else about you." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器在这台 Mac 上检测到的信息。提交错误报告时请附上此报告，它能解答大多数音频问题。报告包含音频设备、预设和已排除的应用名称，不含其他个人信息。"
+          }
+        }
+      }
     },
     "Where AutoEq asks which equalizer you use, choose EqualizerAPO’s parametric EQ." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AutoEq 询问所用均衡器时，请选择 EqualizerAPO 的参数均衡。"
+          }
+        }
+      }
     },
     "You can’t undo this action." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此操作无法撤销。"
+          }
+        }
+      }
     },
     "computed by CoreEQ" : {
-      "comment" : "AutoEq catalog credit: CoreEQ computed this correction itself"
+      "comment" : "AutoEq catalog credit: CoreEQ computed this correction itself",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由均衡器计算"
+          }
+        }
+      }
     },
     "dropped" : {
-      "comment" : "Import sheet: a filter that won’t be imported"
+      "comment" : "Import sheet: a filter that won’t be imported",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已丢弃"
+          }
+        }
+      }
     },
     "measurement by %@" : {
-      "comment" : "AutoEq catalog credit: who measured the headphones, such as “oratory1990”"
+      "comment" : "AutoEq catalog credit: who measured the headphones, such as “oratory1990”",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测量者：%@"
+          }
+        }
+      }
     },
     "±12 dB graphic range" : {
-      "comment" : "Import limit: the graphic sliders’ range"
+      "comment" : "Import limit: the graphic sliders’ range",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "±12 dB 图形均衡范围"
+          }
+        }
+      }
     },
     "“%@” is an aggregate or multi-output device, which CoreEQ can’t equalize. Choose a single output device." : {
-      "comment" : "Engine failure: the output device is made of several devices"
+      "comment" : "Engine failure: the output device is made of several devices",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@”是聚合或多路输出设备，均衡器无法处理。请选择单一输出设备。"
+          }
+        }
+      }
     },
     "… and %lld more" : {
-      "comment" : "Import alert: how many skipped lines are not quoted"
+      "comment" : "Import alert: how many skipped lines are not quoted",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "…以及另外 %lld 项"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
