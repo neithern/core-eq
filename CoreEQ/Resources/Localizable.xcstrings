@@ -1364,6 +1364,16 @@
         }
       }
     },
+    "CoreEQ is not allowed to read Music, so the output rate cannot follow the song." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器没有读取音乐的权限，无法跟随歌曲的采样率。"
+          }
+        }
+      }
+    },
     "CoreEQ isn’t allowed to reach the sound" : {
       "comment" : "Permission heading, after the permission was refused",
       "localizations" : {
@@ -2251,6 +2261,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "收敛低频并提升人声范围，让歌声和演讲更突出。"
+          }
+        }
+      }
+    },
+    "Match the output rate to the playing track" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输出采样率跟随播放的歌曲"
           }
         }
       }
@@ -3259,6 +3279,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "开启“自动”时自动设置；关闭后可拖动手动调整"
+          }
+        }
+      }
+    },
+    "Set the output device to the sample rate of the song being played" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "把输出设备设为当前歌曲的采样率"
+          }
+        }
+      }
+    },
+    "Sets the output to the song's rate when a track starts. Apple Music only." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切歌时把输出设为歌曲的采样率。仅限 Apple Music。"
           }
         }
       }

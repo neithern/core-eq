@@ -16,6 +16,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         outputDeviceUID: outputs.defaultDevicePersistentID
     )
     private lazy var audioEngine = AudioEngine(settings: settings)
+
+    /// Keeps the output device at the playing track's rate. Separate from the
+    /// audio engine on purpose: it is a system-output policy, not part of the
+    /// render path, and the engine already treats a device rate change as an
+    /// external event it rebuilds around.
+    private lazy var sampleRateSync = RateSyncEngine(settings: settings)
+
     private var menuBarController: MenuBarController?
     private var mainWindow: NSWindow?
 
@@ -56,10 +63,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // way macOS keeps a volume per device. Switching outputs loads that
         // device's sound.
         let profileManager = self.profileManager
+        let sampleRateSync = self.sampleRateSync
         OutputDeviceFollower.follow(
             outputs.$defaultDeviceUID,
             note: { ProfileStatusBridge.shared.noteDeviceList(uid: $0) },
-            adopt: { profileManager.setOutputDevice(uid: $0) }
+            adopt: { uid in
+                profileManager.setOutputDevice(uid: uid)
+                // The same emitted value feeds the rate following, so it writes to
+                // the device the app actually moved to rather than to one it
+                // re-read from a list that is being replaced underneath it.
+                sampleRateSync.setOutputDeviceUID(uid)
+            }
         )
         .store(in: &cancellables)
 
@@ -70,6 +84,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         AutoEQStatusBridge.shared.follow(autoEQStore)
 
         audioEngine.start()
+        OutputFormatBridge.shared.follow(sampleRateSync)
+        RateSyncStatusBridge.shared.follow(sampleRateSync)
+        sampleRateSync.start()
 
         // A menu bar app that is waiting for a permission it has not asked for
         // looks like an app doing nothing. The window is where the explanation

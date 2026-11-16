@@ -37,6 +37,24 @@
         }
       }
     },
+    "NSAppleEventsUsageDescription" : {
+      "comment" : "The reason macOS shows when it asks for control of Music. Same text as CoreEQ’s own explanation.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "CoreEQ asks Music what sample rate the current song is in, so the output device can be set to match it. Only that one property is read: nothing is played, paused, or changed in your library."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器需要读取音乐当前播放歌曲的采样率，以便把输出设备设为相同的采样率。只会读取这一项信息，不会播放、暂停或改动你的资料库。"
+          }
+        }
+      }
+    },
     "NSAudioCaptureUsageDescription" : {
       "comment" : "The reason macOS shows when it asks for the audio permission. Same text as CoreEQ’s own explanation.",
       "extractionState" : "manual",

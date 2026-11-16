@@ -135,9 +135,13 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         // Where the sound is going comes first, right under the switch that
         // decides whether it is being shaped at all. Both are questions about
         // the audio path; everything below them is about how it sounds.
+        // The format rides on the section header rather than on a row of its own:
+        // the header already names what the rows below are about, and the rate and
+        // depth are a property of that device rather than another thing to choose.
+        // A disabled row was tried first and read as a greyed-out option.
         menu.addItem(
             .sectionHeader(
-                title: String(localized: "Output", comment: "Menu bar extra section: output device")
+                title: outputSectionTitle()
             ))
         menu.addItem(outputItem())
         menu.addItem(.separator())
@@ -400,6 +404,18 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         let item = NSMenuItem()
         item.view = body
         return item
+    }
+
+    /// "Output · 44.1 kHz · 24 bit", or just "Output" when the device will not say.
+    ///
+    /// The same reading the window shows under the device name, from the same
+    /// bridge, so the menu bar and the window cannot disagree about what the output
+    /// is running at. The separator is the one the window uses between the two
+    /// values, so the two places read alike.
+    private func outputSectionTitle() -> String {
+        let name = String(localized: "Output", comment: "Menu bar extra section: output device")
+        guard let format = OutputFormatBridge.shared.text else { return name }
+        return "\(name) · \(format)"
     }
 
     /// The device the sound is going to. Clicking it unfolds the others below

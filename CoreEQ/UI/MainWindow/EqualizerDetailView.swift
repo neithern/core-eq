@@ -10,6 +10,9 @@ import SwiftUI
 /// stack of panels.
 struct EqualizerDetailView: View {
     @ObservedObject var profileManager: ProfileManager
+
+    /// The output's own format, shown under the device name.
+    @ObservedObject private var outputFormat = OutputFormatBridge.shared
     @ObservedObject var audioEngine: AudioEngine
     /// Deliberately *not* observed here. The analyzer publishes at frame rate,
     /// and observing it at this level rebuilt the header, the editor, the band
@@ -166,11 +169,16 @@ struct EqualizerDetailView: View {
     /// button the moment a slider was touched.
     private var deviceAndRevert: some View {
         HStack(spacing: 8) {
+            // Both slots are held whether or not they are in use, so the device
+            // control keeps the same width either way. Without them the control
+            // would change width as the Revert button came and went, and the
+            // column centreline it is measured against would shift with it.
             Color.clear
                 .frame(width: Theme.revertSlotWidth, height: 1)
                 .accessibilityHidden(true)
 
             deviceControl
+                .fixedSize(horizontal: true, vertical: false)
 
             Button("Revert") { profileManager.resetToActiveProfile() }
                 .controlSize(.small)
@@ -198,28 +206,44 @@ struct EqualizerDetailView: View {
     /// and the effect arrive in the same glance.
     @ViewBuilder
     private var deviceControl: some View {
-        if outputs.hasChoice {
-            // A `Button` with a real `NSMenu`, not a SwiftUI `Menu`: see
-            // `PopUpMenuButton` for what a `Menu` does to a two-line label, and
-            // what happened to the click when that was worked around.
-            PopUpMenuButton {
-                outputMenu()
-            } label: {
-                deviceLines(showsChevron: true)
+        // The format sits under the name, outside the button. Two reasons: it is a
+        // reading rather than something to choose, and a control whose label grows
+        // a second line has a hit area that no longer looks like the thing it does.
+        // Outside, the name stays a one-line target and the format stays text.
+        VStack(spacing: 1) {
+            Group {
+                if outputs.hasChoice {
+                    // A `Button` with a real `NSMenu`, not a SwiftUI `Menu`: see
+                    // `PopUpMenuButton` for what a `Menu` does to a label, and what
+                    // happened to the click when that was worked around.
+                    PopUpMenuButton(alignment: .center) {
+                        deviceNameLine(showsChevron: true)
+                    } menu: {
+                        outputMenu()
+                    }
+                } else {
+                    // One output, or none: state it rather than offering a choice
+                    // the machine cannot honour.
+                    deviceNameLine(showsChevron: false)
+                }
             }
-            .frame(width: Theme.outputControlWidth)
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Output device")
-            .accessibilityValue(deviceAccessibilityValue)
-        } else {
-            // One output, or none: state it rather than offering a choice the
-            // machine cannot honour.
-            deviceLines(showsChevron: false)
-                .frame(width: Theme.outputControlWidth)
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel("Output device")
-                .accessibilityValue(deviceAccessibilityValue)
+            .accessibilityValue(outputs.defaultDeviceName)
+
+            if let format = outputFormat.text {
+                Text(format)
+                    .font(Theme.Font.secondary)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .accessibilityLabel("Output format")
+                    .accessibilityValue(format)
+            }
         }
+        // As wide as the device name needs, never narrower than the floor: a short
+        // name would otherwise make the control a different size from one device to
+        // the next, and the header would shift every time the output changed.
+        .frame(minWidth: 200)
     }
 
     /// The outputs, with the current one ticked.
@@ -242,43 +266,28 @@ struct EqualizerDetailView: View {
         return menu
     }
 
-    private func deviceLines(showsChevron: Bool) -> some View {
+    /// The device name and the chevron, centred, as a single click target.
+    ///
+    /// The preset that used to sit under the name is gone: the sidebar already
+    /// lists every preset with the active one ticked, and naming it here put a
+    /// second line inside the click target that was not itself a choice.
+    private func deviceNameLine(showsChevron: Bool) -> some View {
         HStack(spacing: 7) {
             Image(systemName: outputs.defaultDeviceSymbolName)
                 .font(Theme.Font.body)
                 .foregroundStyle(
                     outputs.devices.isEmpty ? AnyShapeStyle(.secondary) : AnyShapeStyle(.primary))
 
-            VStack(alignment: .leading, spacing: 0) {
-                Text(outputs.defaultDeviceName)
-                    .font(Theme.Font.body)
-                    .foregroundStyle(
-                        outputs.devices.isEmpty
-                            ? AnyShapeStyle(.secondary) : AnyShapeStyle(.primary)
-                    )
-                    .lineLimit(1)
-                    .truncationMode(.middle)
-
-                HStack(spacing: 4) {
-                    Text(profileManager.activeProfileName)
-                        .font(Theme.Font.secondary)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-
-                    // The same mark the sidebar row uses for the same fact, in
-                    // the colour the window gives to anything that came from the
-                    // filters rather than from chrome.
-                    if profileManager.isModified {
-                        Circle()
-                            .fill(Color.coreEQSignal)
-                            .frame(width: 4, height: 4)
-                    }
-                }
-            }
+            Text(outputs.defaultDeviceName)
+                .font(Theme.Font.body)
+                .foregroundStyle(
+                    outputs.devices.isEmpty
+                        ? AnyShapeStyle(.secondary) : AnyShapeStyle(.primary)
+                )
+                .lineLimit(1)
+                .truncationMode(.middle)
 
             if showsChevron {
-                Spacer(minLength: 4)
                 // The menu's own indicator is suppressed, so the control has to
                 // say it is one.
                 Image(systemName: "chevron.up.chevron.down")
@@ -296,16 +305,15 @@ struct EqualizerDetailView: View {
         .padding(.vertical, 5)
     }
 
+    /// The device and its format, for VoiceOver.
+    ///
+    /// The preset is no longer spoken here because it is no longer shown here; the
+    /// sidebar row that names it is the place that does.
     private var deviceAccessibilityValue: String {
-        profileManager.isModified
-            ? String(
-                localized:
-                    "\(outputs.defaultDeviceName), playing \(profileManager.activeProfileName), edited",
-                comment: "Output device, for VoiceOver: device name and its edited preset")
-            : String(
-                localized:
-                    "\(outputs.defaultDeviceName), playing \(profileManager.activeProfileName)",
-                comment: "Output device, for VoiceOver: device name and its preset")
+        guard let format = outputFormat.text else { return outputs.defaultDeviceName }
+        return String(
+            localized: "\(outputs.defaultDeviceName), \(format)",
+            comment: "Output device, for VoiceOver: device name and its sample rate and depth")
     }
 
     // MARK: - Graph

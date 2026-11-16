@@ -17,6 +17,24 @@ struct PopUpMenuButton<Label: View>: View {
     let menu: () -> NSMenu
     @ViewBuilder let label: () -> Label
 
+    /// How the label sits in the control.
+    ///
+    /// A parameter rather than a constant because the two callers want opposite
+    /// things: the header names a device and centres it, while a list row reads
+    /// from the leading edge. The hit area is the full width either way — only the
+    /// ink moves.
+    var alignment: Alignment = .leading
+
+    init(
+        alignment: Alignment = .leading,
+        @ViewBuilder label: @escaping () -> Label,
+        menu: @escaping () -> NSMenu
+    ) {
+        self.menu = menu
+        self.label = label
+        self.alignment = alignment
+    }
+
     @State private var anchor = MenuAnchorBox()
     @State private var isHovering = false
 
@@ -35,7 +53,7 @@ struct PopUpMenuButton<Label: View>: View {
                 // chevron and did nothing. Filling the width and taking a
                 // rectangular content shape makes the whole control the target.
                 // Applied outside the button instead, neither has any effect.
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: alignment)
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
