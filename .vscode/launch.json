@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+        "name": "CoreEQ (Debug)",
+        "type": "lldb-dap",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/Debug/CoreEQ.app/Contents/MacOS/CoreEQ",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "preLaunchTask": "Build CoreEQ (Debug)"
+    },
+    {
+        "type": "swift",
+        "request": "launch",
+        "args": [],
+        "cwd": "${workspaceFolder:core-eq}",
+        "name": "Debug CoreEQ",
+        "target": "CoreEQ",
+        "configuration": "debug",
+        "preLaunchTask": "swift: Build Debug CoreEQ"
+    },
+    {
+        "type": "swift",
+        "request": "launch",
+        "args": [],
+        "cwd": "${workspaceFolder:core-eq}",
+        "name": "Release CoreEQ",
+        "target": "CoreEQ",
+        "configuration": "release",
+        "preLaunchTask": "swift: Build Release CoreEQ"
+    }
+]
+}
