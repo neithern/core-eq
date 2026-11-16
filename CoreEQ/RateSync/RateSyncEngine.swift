@@ -260,6 +260,14 @@ final class RateSyncEngine: ObservableObject {
     /// user choosing a different output. A pause there would be a silence with no
     /// cause, and the switch itself has nothing to hide behind.
     private func matchDeviceToThePlayingTrack() {
+        // Before the read, not after it. Asking Music is the one thing in this
+        // feature that needs a system permission, and a read taken with the feature
+        // switched off still asks for it — measured in the TCC log, an Apple event to
+        // Music at launch with the setting off, which is exactly what a user who
+        // turned it off does not expect. The device change that calls this arrives
+        // whether or not the feature is on, so the guard has to live here.
+        guard isSyncEnabled else { return }
+
         let generation = trackGeneration
         Task { [weak self] in
             guard let self, let format = await self.settledFormat() else { return }
