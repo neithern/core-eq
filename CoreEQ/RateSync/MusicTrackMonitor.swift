@@ -23,6 +23,14 @@ final class MusicTrackMonitor {
     /// a song that never changed.
     private var lastTitle: String?
 
+    /// Set while CoreEQ is driving the player itself.
+    ///
+    /// Pausing for a sample-rate switch makes Music post the same notification a
+    /// track change does, and a monitor that took it at face value would see every
+    /// switch as another song — pausing again, forever. The flag makes the
+    /// difference explicit rather than guessed at.
+    private var isSuppressing = false
+
     func start() {
         guard observer == nil else { return }
         observer = DistributedNotificationCenter.default().addObserver(
@@ -44,7 +52,19 @@ final class MusicTrackMonitor {
         lastTitle = nil
     }
 
+    /// Runs `body` with notifications from our own playback commands ignored.
+    ///
+    /// Notifications that arrive while this runs are dropped rather than deferred:
+    /// the player state it would report is one CoreEQ just asked for, and a real
+    /// change that happened at the same instant will post again when it settles.
+    func suppressingOwnCommands<T>(_ body: () async -> T) async -> T {
+        isSuppressing = true
+        defer { isSuppressing = false }
+        return await body()
+    }
+
     private func received(_ playback: MusicPlayback) {
+        guard !isSuppressing else { return }
         guard playback.isPlaying else { return }
 
         guard let lastTitle else {

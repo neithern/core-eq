@@ -127,14 +127,19 @@ final class MusicTrackFormat {
 
     // MARK: - The script
 
-    /// One property and one name, read-only.
+    /// One property, a name, and an id, read-only.
     ///
     /// The name is requested alongside the rate because the two are what make the
     /// answer checkable. Nothing is played, paused, or added: a wrong answer can
     /// never move anything. `sample rate` arrives as an integer in hertz.
+    ///
+    /// The playback guard is deliberately gone. It existed to avoid reading a stale
+    /// rate while nothing was playing, but the switch itself pauses the player — so a
+    /// guard on `player state` would refuse to answer at exactly the moment the
+    /// answer is needed. What rules out a stale read is not the player state but the
+    /// caller: two reads that agree, and an id that has changed since the last song.
     nonisolated private static let script = """
         tell application "Music"
-            if player state is not playing then return ""
             try
                 return ((sample rate of current track) as string) ¬
                     & "\t" & ((id of current track) as string) ¬
@@ -162,6 +167,44 @@ final class MusicTrackFormat {
         }
     }
 
+    /// Pauses playback. Whether Music accepted the command.
+    ///
+    /// Used to make a sample-rate switch silent: the device drops out for a third of
+    /// a second while it renegotiates, and pausing turns that into a deliberate gap
+    /// rather than a click. The audio is stopped for about 47 ms of it; the rest is
+    /// the round trip.
+    ///
+    /// Separate from `play` rather than one script containing both: measured, a
+    /// script that pauses and plays ends paused, because the play runs before the
+    /// pause has taken effect.
+    func pause() async -> Bool {
+        await Self.runPlaybackCommand("pause")
+    }
+
+    /// Resumes playback.
+    func play() async {
+        _ = await Self.runPlaybackCommand("play")
+    }
+
+    /// Runs a one-word playback command off the main thread.
+    nonisolated private static func runPlaybackCommand(_ command: String) async -> Bool {
+        await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                let source = """
+                    tell application "Music"
+                        \(command)
+                    end tell
+                    """
+                guard let object = NSAppleScript(source: source) else {
+                    continuation.resume(returning: false)
+                    return
+                }
+                var error: NSDictionary?
+                _ = object.executeAndReturnError(&error)
+                continuation.resume(returning: error == nil)
+            }
+        }
+    }
     /// Executes the script. Not `async`: the caller decides the queue.
     nonisolated static func query() -> Result<Format, Failure> {
         guard let scriptObject = NSAppleScript(source: script) else {

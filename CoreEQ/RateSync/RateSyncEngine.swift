@@ -82,29 +82,12 @@ final class RateSyncEngine: ObservableObject {
     /// retired window still ran its close.
     private var trackGeneration = 0
 
-    /// Whether this track change has already been acted on.
-    ///
-    /// One write per change is deliberate. Letting a change revise its answer was
-    /// tried and produced two reconfigurations where the second was wrong — worse
-    /// than one answer that is merely stale.
-    private var hasActedInThisGeneration = false
-
     /// The id of the song Music last answered for.
     ///
     /// The guard against acting on a stale read: at a track change the track object
     /// has already swapped while its properties can still hold the previous song, so
     /// a read whose id has not changed is a read of the song that just ended.
     private var lastAcceptedTrackID: Int?
-
-    /// The previous answer, for the settle check.
-    ///
-    /// Two reads that agree are a read of a settled track. A single read cannot tell
-    /// "the rate is right" from "the rate has not been updated yet", which is why the
-    /// first one after a change is never acted on.
-    private var lastReading: MusicTrackFormat.Format?
-
-    /// How many times the format question has been asked for the current window.
-    private var attemptsThisGeneration = 0
 
     init(settings: SettingsStore) {
         self.settings = settings
@@ -159,8 +142,12 @@ final class RateSyncEngine: ObservableObject {
         // for the same reason a track change is: the user just changed something,
         // and waiting for the next track would leave the new device at whatever
         // rate it happened to be running.
+        //
+        // Without a pause: a pause is for a switch in the middle of a song, where the
+        // device going away would be heard. A device the user has just chosen has no
+        // audio to interrupt yet, and pausing here would be a silence with no cause.
         beginGeneration()
-        askMusic()
+        matchDeviceToThePlayingTrack()
     }
 
     // MARK: - Settings
@@ -205,8 +192,9 @@ final class RateSyncEngine: ObservableObject {
         trackMonitor.start()
 
         // The app starting is the other moment a write is allowed, and the song may
-        // already be halfway through.
-        askMusic()
+        // already be halfway through. Same reasoning as a device change: nothing is
+        // being interrupted, so nothing is paused.
+        matchDeviceToThePlayingTrack()
 
         // Asking Music is what asks for permission to ask Music: automation has no
         // request API, so the prompt appears on the first script and the answer
@@ -244,96 +232,126 @@ final class RateSyncEngine: ObservableObject {
         // Retires whatever was in flight: a result computed for this generation must
         // not be applied after the feature has been turned off.
         trackGeneration += 1
-        hasActedInThisGeneration = false
-        attemptsThisGeneration = 0
     }
 
-    /// A new track: retire whatever was in flight and ask what this one is.
+    /// A new track: pause, read, switch, rebuild, resume.
+    ///
+    /// Pausing first is what makes the switch silent. The device is unavailable for
+    /// about a third of a second while it renegotiates, and without a pause that
+    /// third of a second is a click in the middle of a song. With it, the gap is
+    /// deliberate: measured, the audio is stopped for about 47 ms around the switch.
+    ///
+    /// Most of the cost of the pause is not the pause. A `play` command takes about
+    /// 275 ms to return, and only 47 ms of that is audio actually stopped — the rest
+    /// is the round trip. That is why the pause happens on every track change rather
+    /// than only when the rate differs: reading the rate first to decide would cost
+    /// about as much as the pause it would save.
     private func trackChanged() {
         logger.notice("Track changed")
         beginGeneration()
-        askMusic()
+
+        guard isSyncEnabled else { return }
+        Task { await switchToTheNewTrack() }
     }
 
-    // MARK: - Asking Music
+    /// Matches the device to whatever is playing, without pausing.
+    ///
+    /// For the moments where no audio is being interrupted: the app starting, or the
+    /// user choosing a different output. A pause there would be a silence with no
+    /// cause, and the switch itself has nothing to hide behind.
+    private func matchDeviceToThePlayingTrack() {
+        let generation = trackGeneration
+        Task { [weak self] in
+            guard let self, let format = await self.settledFormat() else { return }
+            guard self.isSyncEnabled, self.trackGeneration == generation else { return }
 
-    /// Asks Music for the playing track format, and checks the answer belongs to the
-    /// track that was announced.
-    ///
-    /// The check is the whole point, and it is subtler than "did the id change".
-    ///
-    /// Measured on this Mac, immediately after `next track`:
-    ///
-    /// ```
-    /// +  0 ms   48000  11156   <- new song id, previous song rate
-    /// + 30 ms   44100  10729   <- both settled
-    /// ```
-    ///
-    /// The id leads the rate, so an id that has changed proves nothing about the
-    /// rate beside it — acting on that first read writes the previous song rate,
-    /// which is exactly the failure this feature kept having. What does prove it is
-    /// agreement: two reads that state the same pair are a read of a settled track.
-    /// It settles in about 30 ms, so one extra query is a cheap price.
-    private func askMusic() {
-        guard isSyncEnabled, !hasActedInThisGeneration else { return }
-        guard outputDeviceID != kAudioObjectUnknown else { return }
-        guard attemptsThisGeneration < RateSyncEngine.maxAttempts else {
-            logger.notice("Gave up asking Music; leaving the device alone")
+            self.lastAcceptedTrackID = format.trackID
+            self.logger.notice(
+                "Music says \(format.sampleRate, privacy: .public) Hz for track \(format.trackID, privacy: .public) \"\(format.trackName, privacy: .public)\""
+            )
+            self.apply(rate: format.sampleRate)
+        }
+    }
+    /// The whole sequence for one track change.
+    private func switchToTheNewTrack() async {
+        let generation = trackGeneration
+
+        let paused = await trackMonitor.suppressingOwnCommands {
+            await trackFormat.pause()
+        }
+        logger.notice("Paused Music for the switch: \(paused, privacy: .public)")
+
+        // Whatever happens below, the player is put back. Without this a failed read
+        // or a refused write would leave Music paused with nothing to resume it.
+        defer {
+            Task {
+                await trackMonitor.suppressingOwnCommands { await trackFormat.play() }
+                logger.notice("Resumed Music")
+            }
+        }
+
+        guard let format = await settledFormat() else {
+            logger.notice("No settled format; leaving the device alone")
             return
         }
-        attemptsThisGeneration += 1
+        guard trackGeneration == generation else { return }
 
-        let previous = lastReading
-        let previousID = lastAcceptedTrackID
-        Task { [weak self] in
-            guard let self else { return }
-            let format = await self.trackFormat.fetch()
+        logger.notice(
+            "Music says \(format.sampleRate, privacy: .public) Hz for track \(format.trackID, privacy: .public) \"\(format.trackName, privacy: .public)\""
+        )
+        lastAcceptedTrackID = format.trackID
+        apply(rate: format.sampleRate)
+    }
 
-            // The world may have moved while the answer was in flight.
-            guard self.isSyncEnabled, !self.hasActedInThisGeneration else {
-                return
+    /// Reads until two answers agree, which is what tells a settled track from one
+    /// that is still being prepared.
+    ///
+    /// The id leads the rate by about 30 ms: immediately after a change the track
+    /// object is already the new song while its rate still belongs to the old one.
+    /// Agreement is what rules that out.
+    private func settledFormat() async -> MusicTrackFormat.Format? {
+        var previous: MusicTrackFormat.Format?
+        var failures = 0
+
+        for _ in 0..<RateSyncEngine.maxAttempts {
+            guard let format = await trackFormat.fetch() else {
+                failures += 1
+                // A read that fails is a player that has not caught up: it is still
+                // loading the track, and asking again immediately only spends the
+                // attempts without giving it time. Measured, ten immediate retries
+                // burned the whole budget in 500 ms and gave up while Music was still
+                // opening the song. Backing off turns the same budget into a window
+                // the player can finish in.
+                if failures >= RateSyncEngine.maxFailedReads {
+                    logger.notice(
+                        "Music had no answer after \(failures, privacy: .public) reads; giving up")
+                    return nil
+                }
+                await Self.backOff(afterFailures: failures)
+                continue
             }
+            failures = 0
 
-            guard let format else {
-                self.logger.notice("Music had no answer; asking again")
-                self.askMusic()
-                return
-            }
-
-            // Nothing has changed since the last read, so this one describes the
-            // same moment rather than a settled track.
             if let previous,
                 previous.trackID == format.trackID,
                 previous.sampleRate == format.sampleRate
             {
-                self.hasActedInThisGeneration = true
-                self.lastAcceptedTrackID = format.trackID
-                self.lastReading = format
-                self.logger.notice(
-                    "Music says \(format.sampleRate, privacy: .public) Hz for track \(format.trackID, privacy: .public) \"\(format.trackName, privacy: .public)\""
-                )
-                self.apply(rate: format.sampleRate)
-                return
+                return format
             }
-
-            // The first read, or one that moved: remember it and look again rather
-            // than trusting a pair that is still settling.
-            self.lastReading = format
-
-            let reason: String
-            if let previousID, format.trackID == previousID {
-                reason = "Music still reports track \(format.trackID), the song that just ended"
-            } else {
-                reason = "Waiting for the rate to settle at \(format.sampleRate) Hz"
-            }
-            self.logger.notice("\(reason, privacy: .public); asking again")
-
-            // Straight back to the top, with no delay: the read itself is the
-            // interval. One round trip measured 27–72 ms, median 50 ms — longer
-            // than any pause worth adding, so a wait on top of it would only put
-            // the second read further from the change it is trying to catch.
-            self.askMusic()
+            previous = format
         }
+        return nil
+    }
+
+    /// Waits before the next read, longer after each failure.
+    ///
+    /// The wait grows with the number of failures because the usual cause is a player
+    /// that needs time, and a fixed short interval would spend the whole budget before
+    /// it had any. The cap keeps the total inside the window the switch can afford.
+    private static func backOff(afterFailures failures: Int) async {
+        let base = RateSyncEngine.retryBackoff
+        let wait = min(base * Double(failures), RateSyncEngine.maxBackoff)
+        try? await Task.sleep(for: .seconds(wait))
     }
 
     // MARK: - The track change
@@ -341,13 +359,6 @@ final class RateSyncEngine: ObservableObject {
     /// Begins a new track change: nothing from before it may be applied now.
     private func beginGeneration() {
         trackGeneration += 1
-        hasActedInThisGeneration = false
-        attemptsThisGeneration = 0
-        // The settle check compares two reads of *this* track. Carrying the previous
-        // one across would make the first read of the new track look settled against
-        // a song that has already ended.
-        lastReading = nil
-
     }
 
     // MARK: - Writing the device
@@ -364,6 +375,14 @@ final class RateSyncEngine: ObservableObject {
         switch RateSyncPolicy.decide(sourceRate: rate, device: device) {
         case .write(let target):
             write(rate: target)
+        // No rebuild here, deliberately.
+        //
+        // The engine rebuilds from its own rate listener, and measurement showed
+        // that is the rebuild audio actually returns from: the eager one landed in
+        // the same millisecond as the write, while the device was still
+        // renegotiating, and audio did not start again until the listener rebuilt
+        // about two seconds later. Rebuilding here only tore down a path that was
+        // about to be torn down again.
 
         case .nothing(let reason):
             logger.notice(
@@ -476,6 +495,23 @@ final class RateSyncEngine: ObservableObject {
     /// answer is abandoned rather than waited on. The caller gives up rather than
     /// writing a guess.
     static let maxAttempts = 10
+
+    /// How many reads may fail before the switch gives up on this track.
+    ///
+    /// A failed read is not the same as a read that disagrees: disagreement is the
+    /// normal course of a rate that is settling, while a failure means Music would
+    /// not name the track at all. Three is enough to cover a slow load and short
+    /// enough that a player which is not going to answer does not hold the switch.
+    static let maxFailedReads = 3
+
+    /// How long to wait after a failed read, multiplied by the number of failures.
+    ///
+    /// A hundred milliseconds, then two, then three: the whole budget becomes about
+    /// half a second of real waiting, which is what a loading track needs.
+    static let retryBackoff: TimeInterval = 0.1
+
+    /// The longest a single wait may become.
+    static let maxBackoff: TimeInterval = 0.3
 
     isolated deinit {
         stop()
