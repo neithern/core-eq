@@ -22,8 +22,10 @@ final class SettingsStore {
         static let lastOutputDeviceUID = "lastOutputDeviceUID"
         static let pausesWhenSilent = "pausesWhenSilent"
         static let pausesWhileRecording = "pausesWhileRecording"
+        static let spectrumFramesPerSecond = "spectrumFramesPerSecond"
         static let excludedBundleIDs = "excludedBundleIDs"
         static let exclusionList = "exclusionListBundleIDs"
+        static let syncsOutputSampleRate = "syncsOutputSampleRate"
     }
 
     private let defaults: UserDefaults
@@ -79,6 +81,34 @@ final class SettingsStore {
         set { defaults.set(newValue, forKey: Key.pausesWhileRecording) }
     }
 
+    /// How often the response plot's spectrum is analysed, in Hz.
+    ///
+    /// Deliberately absent from Settings. It exists so the backdrop's cost can
+    /// be measured at different rates from the command line — see
+    /// `Tools/spectrum-rate.sh` — not as a control anyone has to understand.
+    /// The app reads it once at launch, because a `defaults write` from another
+    /// process does not notify this one.
+    ///
+    /// A value that is not a positive, finite number falls back to the default;
+    /// a positive one outside the supported range is clamped, so a typo on the
+    /// command line cannot leave the app without a working analyzer.
+    var spectrumFramesPerSecond: Double {
+        get {
+            guard let number = defaults.object(forKey: Key.spectrumFramesPerSecond) as? NSNumber
+            else { return SpectrumAnalyzer.defaultFramesPerSecond }
+            let value = number.doubleValue
+            guard value.isFinite, value > 0 else {
+                return SpectrumAnalyzer.defaultFramesPerSecond
+            }
+            return value.clamped(to: SpectrumAnalyzer.framesPerSecondRange)
+        }
+        set {
+            defaults.set(
+                newValue.clamped(to: SpectrumAnalyzer.framesPerSecondRange),
+                forKey: Key.spectrumFramesPerSecond)
+        }
+    }
+
     /// Apps CoreEQ leaves alone, by bundle identifier, in the order they were
     /// added. Empty unless the user has excluded something. Read by the engine
     /// each time it builds the tap; see `AppExclusion`.
@@ -104,6 +134,15 @@ final class SettingsStore {
     /// Always includes every excluded app, even one missing from the stored
     /// list, so nothing the engine leaves out can be invisible in the pane —
     /// the one place it could be switched back.
+    /// Whether the output device is kept at the playing track's sample rate.
+    ///
+    /// On by default: a 44.1 kHz album played through a 48 kHz output is resampled
+    /// for no reason the user asked for, and the device usually changes quietly.
+    var syncsOutputSampleRate: Bool {
+        get { defaults.object(forKey: Key.syncsOutputSampleRate) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Key.syncsOutputSampleRate) }
+    }
+
     var exclusionListBundleIDs: [String] {
         get {
             let listed = defaults.stringArray(forKey: Key.exclusionList) ?? []

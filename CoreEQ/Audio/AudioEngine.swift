@@ -341,7 +341,11 @@ final class AudioEngine: ObservableObject {
         // exist before there is a `self` to hand it.
         self.spectrum = SpectrumAnalyzer(
             buffer: processor.spectrumBuffer,
-            sampleRate: { AudioEngine.defaultSampleRate }
+            sampleRate: { AudioEngine.defaultSampleRate },
+            // Read once, at launch: the rate is a measurement knob with no
+            // interface, and a stored change from outside the app does not
+            // reach a running process (see `SettingsStore.spectrumFramesPerSecond`).
+            framesPerSecond: settings.spectrumFramesPerSecond
         )
         processor.setBypassed(!settings.isEnabled)
         spectrum.setSampleRateProvider { [weak self] in
@@ -1282,67 +1286,96 @@ final class AudioEngine: ObservableObject {
         }
     }
 
-    /// How long the rate must go without another notification before the
-    /// engine looks at it.
-    private static let rateSettleDelay: TimeInterval = 1.0
-
-    /// Starts, or restarts, the quiet period after a rate notification.
+    /// How often the device is asked for its rate while a switch is in flight.
     ///
-    /// A rate change is not one event. The device renegotiates, the aggregate
-    /// follows, and both notify, sometimes more than once. The first version of
-    /// this rebuilt 0.3 s after the first notification, tearing down and
-    /// creating devices while that was still under way, and the rate change it
-    /// was answering was followed by coreaudiod not answering for minutes —
-    /// with two engines running, so the cause is not proven, but a rebuild in
-    /// the middle of a renegotiation is the likeliest trigger and the one this
-    /// removes. The manual restart that fixed the sound in the report happened
-    /// long after the device had settled, and this waits for the same.
+    /// Fifty milliseconds: a switch notifies about 270 ms after the write and the
+    /// device reports the new rate around 350 ms, so this is six or seven reads
+    /// across the whole thing — cheap, and fine enough not to overshoot the moment
+    /// the rate stops moving by more than a frame.
+    private static let ratePollInterval: TimeInterval = 0.05
+
+    /// The longest a switch may take to hold one rate before the wait is abandoned.
+    ///
+    /// Sampled every 5 ms across seven switches, the device reports the new rate
+    /// 352–373 ms after the write, so a second is nearly three times the slowest one
+    /// measured — and a device still not there is refusing rather than slow. The old
+    /// chain waited a fixed second *plus* a quarter for confirmation; this is the
+    /// whole budget now, and it ends the moment the rate is observed to have stopped
+    /// moving.
+    private static let rateSettleTimeout: TimeInterval = 1.0
+
+    /// The rate most recently seen while waiting for a switch to hold.
+    private var rateWhileSettling: Double?
+
+    /// When the current wait began, so it cannot run forever.
+    private var rateSettleStartedAt: Date?
+
+    /// Waits for the device to hold a rate, then rebuilds the path at it.
+    ///
+    /// The old shape of this was a one-second quiet period followed by two reads a
+    /// quarter of a second apart. Both numbers were estimates of how long a switch
+    /// takes; this version asks the device instead. It watches until two consecutive
+    /// reads agree — a poll interval apart — and rebuilds at that rate.
+    ///
+    /// Two reads rather than one is the whole of the confirmation. The failure the old
+    /// comment records was a rebuild started in the middle of a renegotiation, which
+    /// left coreaudiod unresponsive for minutes; a rate that has already been read the
+    /// same twice is not one still being negotiated. Sampled every 5 ms across seven
+    /// switches, the nominal rate moved exactly once and never returned, so waiting
+    /// longer than one poll interval buys nothing the hardware can report.
     private func noteRateChange() {
         rateSettle?.cancel()
+        guard deviceRateListenedID != kAudioObjectUnknown else { return }
+
+        rateSettleStartedAt = Date()
+        rateWhileSettling = nil
+        scheduleRateCheck(after: Self.ratePollInterval)
+    }
+
+    /// Schedules one look at the device's rate.
+    private func scheduleRateCheck(after delay: TimeInterval) {
         let work = DispatchWorkItem { [weak self] in
-            guard let self else { return }
-            self.rateSettle = nil
-            self.rebuildIfRateSettled()
+            MainActor.assumeIsolated { self?.checkDeviceRate() }
         }
         rateSettle = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + Self.rateSettleDelay, execute: work)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: work)
     }
 
-    /// Rebuilds the audio path when the device has settled at a rate other
-    /// than the one the path was built at.
-    ///
-    /// Retuning the filters is not enough. Reproduced on a MacBook Pro's own
-    /// speakers: switched from 44.1 to 48 kHz under running audio, the
-    /// aggregate reported the new rate, the filters followed it — the rate
-    /// trace saw no disagreement — and the sound was chopped until CoreEQ was
-    /// restarted. Part of the path is fixed when it is built, and only building
-    /// it again brings it to the new rate, which is what a restart did.
-    ///
-    /// Read twice, a quarter of a second apart, and acted on only if the two
-    /// agree: a rate that is still moving is not one to build at. Cannot loop,
-    /// because the new path is built at the device's rate and the rates then
-    /// agree. Stands aside for a rebuild that is already scheduled.
-    private func rebuildIfRateSettled() {
+    /// One look: still moving, holding, or confirmed.
+    private func checkDeviceRate() {
         let deviceID = deviceRateListenedID
         guard pendingRestart == nil, deviceID != kAudioObjectUnknown,
-            let first = try? nominalSampleRate(of: deviceID)
-        else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
-            MainActor.assumeIsolated {
-                guard let self, self.pendingRestart == nil, self.rateSettle == nil,
-                    self.deviceRateListenedID == deviceID,
-                    let second = try? self.nominalSampleRate(of: deviceID),
-                    second == first, second > 0, self.pathSampleRate > 0,
-                    second != self.pathSampleRate
-                else { return }
-                self.scheduleRestart(
-                    after: 0,
-                    reason:
-                        "sample rate changed from \(Int(self.pathSampleRate)) to \(Int(second)) Hz")
-            }
+            let startedAt = rateSettleStartedAt
+        else {
+            rateSettle = nil
+            return
         }
-    }
 
+        guard Date().timeIntervalSince(startedAt) < Self.rateSettleTimeout else {
+            rateSettle = nil
+            logger.error("The device never held one rate; leaving the path alone")
+            return
+        }
+
+        guard let current = try? nominalSampleRate(of: deviceID), current > 0 else {
+            scheduleRateCheck(after: Self.ratePollInterval)
+            return
+        }
+
+        // Two reads that agree means the rate has stopped moving, which is as much
+        // confirmation as the device can give: it reports one step and holds it.
+        guard let previous = rateWhileSettling, abs(current - previous) < 1 else {
+            rateWhileSettling = current
+            scheduleRateCheck(after: Self.ratePollInterval)
+            return
+        }
+
+        rateSettle = nil
+        guard pathSampleRate > 0, abs(current - pathSampleRate) >= 1 else { return }
+        scheduleRestart(
+            after: 0,
+            reason: "sample rate changed from \(Int(pathSampleRate)) to \(Int(current)) Hz")
+    }
     /// Logs the trace once the cycles after a rate change have been recorded.
     ///
     /// A second, because the far edge of the window is what is being measured

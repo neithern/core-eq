@@ -18,10 +18,15 @@
 				App/AppDelegate.swift,
 				App/CoreEQApp.swift,
 				App/EngineStatusBridge.swift,
+				App/OutputFormatBridge.swift,
+				App/RateSyncStatusBridge.swift,
 				Audio/AudioDeviceList.swift,
 				Audio/AudioDevices.swift,
 				Audio/AudioEngine.swift,
 				Audio/ExclusiveAccessMonitor.swift,
+				RateSync/MusicTrackMonitor.swift,
+				RateSync/OutputDeviceFormat.swift,
+				RateSync/RateSyncEngine.swift,
 				"Extensions/Color+CoreEQ.swift",
 				"Extensions/NSFont+Bold.swift",
 				Resources/AppIcon.icns,
@@ -183,6 +188,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				zh-Hans,
 				Base,
 			);
 			mainGroup = 1A0000000000000000000002;

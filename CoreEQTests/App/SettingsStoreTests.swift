@@ -188,4 +188,38 @@ import Testing
         #expect(defaults.object(forKey: "exclusionListBundleIDs") == nil)
     }
 
+    /// The spectrum rate is a measurement knob rather than a setting — absent
+    /// from Settings on purpose — but it still has to survive a relaunch,
+    /// because that is how the command-line tool applies it.
+    @Test func theSpectrumRateDefaultsToThirtyHertz() {
+        #expect(settings.spectrumFramesPerSecond == SpectrumAnalyzer.defaultFramesPerSecond)
+        #expect(SpectrumAnalyzer.defaultFramesPerSecond == 30)
+    }
+
+    @Test func theSpectrumRateSurvivesARelaunch() {
+        settings.spectrumFramesPerSecond = 15
+        #expect(SettingsStore(defaults: defaults).spectrumFramesPerSecond == 15)
+    }
+
+    /// A typo on the command line must not leave the app without a backdrop:
+    /// what is written is clamped to what the analyzer accepts.
+    @Test func writingTheSpectrumRateClampsIt() {
+        settings.spectrumFramesPerSecond = 1
+        #expect(SettingsStore(defaults: defaults).spectrumFramesPerSecond == 5)
+
+        settings.spectrumFramesPerSecond = 300
+        #expect(SettingsStore(defaults: defaults).spectrumFramesPerSecond == 60)
+    }
+
+    /// And what is read is guarded too, because the value can be written by
+    /// something other than this app. Zero would stop the timer entirely;
+    /// a negative or non-numeric value would make the conversion nonsense.
+    @Test func aNonsenseSpectrumRateFallsBackToTheDefault() {
+        for rubbish: Any in [0.0, -4.0, "fast"] {
+            defaults.set(rubbish, forKey: "spectrumFramesPerSecond")
+            #expect(
+                SettingsStore(defaults: defaults).spectrumFramesPerSecond == 30,
+                "\(rubbish) did not fall back to the default")
+        }
+    }
 }

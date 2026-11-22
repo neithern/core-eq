@@ -31,14 +31,29 @@ final class SpectrumAnalyzer: ObservableObject {
     /// segment on every frame.
     private static let displayPointCount = 128
 
-    /// Analysis rate.
+    /// The rate the spectrum is analysed at, in Hz, and the one place it
+    /// defaults to.
     ///
-    /// This drives a decorative backdrop with a deliberately slow release, and
-    /// its cost is very close to linear in this number — measured on an M-series
-    /// Mac with music playing and the window open, the whole app costs about
-    /// 8.7% of a core at 15 Hz and 14.3% at 30 Hz. Twenty is the point where the
-    /// motion still reads as continuous and the bill stops being noticeable.
-    private static let framesPerSecond = 20.0
+    /// The backdrop is a Core Animation layer now, so a tick costs two
+    /// `CGPath`s and a `CATransaction` rather than a SwiftUI body, a display
+    /// list, and a re-rasterized canvas. Measured on an M-series Mac, one
+    /// 1000×380 plot with 128 points: the old Canvas cost 2.37 / 2.78 / 3.97% of
+    /// a core at 15 / 20 / 30 Hz; the layer costs 0.40 / 0.52 / 0.85%. The FFT
+    /// itself is 0.02–0.04% at those rates, so once the drawing is out of
+    /// SwiftUI's way the rate is nearly free to raise.
+    ///
+    /// Overridden by `SettingsStore.spectrumFramesPerSecond`, which is read
+    /// once at launch. There is deliberately no control for it in Settings; it
+    /// exists so the backdrop's cost can be measured at different rates from
+    /// the command line (see `Tools/spectrum-rate.sh`).
+    static let defaultFramesPerSecond: Double = 30
+
+    /// What a configured rate is clamped to.
+    ///
+    /// The floor still reads as a spectrum rather than a slideshow; the ceiling
+    /// is the rate the attack and release constants were chosen against, and
+    /// analysing faster than that buys nothing the eye can see.
+    static let framesPerSecondRange: ClosedRange<Double> = 5...60
     private static let minFrequency = 20.0
     private static let maxFrequency = 20_000.0
 
@@ -51,17 +66,27 @@ final class SpectrumAnalyzer: ObservableObject {
     // Rise quickly, fall gently. These are per frame, so they are stated at the
     // original 60 Hz and converted for the rate actually used — otherwise
     // halving the frame rate would halve the responsiveness with it.
-    private static let attack = coefficient(atSixtyHertz: 0.55)
-    private static let release = coefficient(atSixtyHertz: 0.16)
+    private let attack: Float
+    private let release: Float
 
-    /// The same exponential time constant expressed for `framesPerSecond`.
-    private static func coefficient(atSixtyHertz value: Float) -> Float {
+    /// How much of the remaining distance a level covers in one frame, for a
+    /// coefficient quoted at 60 Hz. The conversion is what keeps the backdrop
+    /// moving at the same speed whatever it is analysed at.
+    static func coefficient(atSixtyHertz value: Float, framesPerSecond: Double) -> Float {
         1 - pow(1 - value, Float(60.0 / framesPerSecond))
     }
 
     private let buffer: SpectrumAudioBuffer
     private var sampleRateProvider: () -> Double
     private let logger = Logger(subsystem: "com.andreypudov.coreeq", category: "SpectrumAnalyzer")
+
+    /// The rate this analyzer was built at, in Hz.
+    ///
+    /// Read once from `SettingsStore` at launch and never changed afterwards:
+    /// varying it mid-session would mean rebuilding the timer and the
+    /// smoothing coefficients for a knob with no interface. Tests build
+    /// analyzers at other rates to check the conversion.
+    let framesPerSecond: Double
 
     private let displayFrequencies: [Double]
     private var smoothed: [Float]
@@ -85,9 +110,24 @@ final class SpectrumAnalyzer: ObservableObject {
     private var magnitudes: [Float]
     private var lastTotal: UInt64 = 0
 
-    init(buffer: SpectrumAudioBuffer, sampleRate: @escaping () -> Double) {
+    init(
+        buffer: SpectrumAudioBuffer, sampleRate: @escaping () -> Double,
+        framesPerSecond: Double = SpectrumAnalyzer.defaultFramesPerSecond
+    ) {
         self.buffer = buffer
         self.sampleRateProvider = sampleRate
+        // A rate that is not a positive real number can only come from a bad
+        // stored value; the app clamps before it gets here, and this is the
+        // last line of defence against a timer that never fires or fires
+        // forever. A real number outside the range is clamped rather than
+        // rejected, so a typo still leaves a working backdrop.
+        let rate =
+            framesPerSecond.isFinite && framesPerSecond > 0
+            ? framesPerSecond.clamped(to: Self.framesPerSecondRange)
+            : Self.defaultFramesPerSecond
+        self.framesPerSecond = rate
+        attack = Self.coefficient(atSixtyHertz: 0.55, framesPerSecond: rate)
+        release = Self.coefficient(atSixtyHertz: 0.16, framesPerSecond: rate)
 
         let size = Self.fftSize
         window = [Float](repeating: 0, count: size)
@@ -143,7 +183,7 @@ final class SpectrumAnalyzer: ObservableObject {
     func start() {
         guard !isRunning, fftSetup != nil else { return }
         isRunning = true
-        let timer = Timer(timeInterval: 1.0 / Self.framesPerSecond, repeats: true) {
+        let timer = Timer(timeInterval: 1.0 / framesPerSecond, repeats: true) {
             [weak self] _ in
             MainActor.assumeIsolated { self?.analyze() }
         }
@@ -255,7 +295,7 @@ final class SpectrumAnalyzer: ObservableObject {
     }
 
     private func smooth(_ index: Int, toward target: Float) {
-        let coefficient = target > smoothed[index] ? Self.attack : Self.release
+        let coefficient = target > smoothed[index] ? attack : release
         let next = smoothed[index] + (target - smoothed[index]) * coefficient
         smoothed[index] = next < Self.silenceThreshold ? 0 : next
     }

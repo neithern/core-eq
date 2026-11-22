@@ -116,6 +116,26 @@ Engine activity is logged through =os.Logger= (subsystem
 log stream --predicate 'subsystem == "com.andreypudov.coreeq"' --level info
 #+end_src
 
+** Tuning the spectrum rate
+
+The response plot's backdrop is analysed at a rate stored in =UserDefaults=
+(=spectrumFramesPerSecond=, 30 Hz by default and clamped to 5–60). It is
+deliberately not in Settings: it exists so the backdrop's cost can be measured
+at different rates, not as a control anyone has to understand.
+
+#+begin_src sh
+Tools/spectrum-rate.sh          # the rate the app will use
+Tools/spectrum-rate.sh 15       # write 15 Hz, then restart CoreEQ
+#+end_src
+
+The analyzer reads the value once, at launch, because a =defaults write= from
+another process does not notify a running one — the tool restarts CoreEQ rather
+than waiting for a change that never arrives. Measured on an M-series Mac, a
+1000×380 plot with 128 points costs 0.40 / 0.52 / 0.85% of a core at 15 / 20 /
+30 Hz now that the backdrop is a Core Animation layer, and the analyzer's own
+FFT is a further 0.02–0.04%. See =SpectrumBackdrop.swift= for why it is not a
+=Canvas=.
+
 ** The README screenshot
 
 =make screenshot= takes it without anyone touching the app, so screenshots of
@@ -637,6 +657,7 @@ CoreEQ/
       FrequencyResponseView.swift Response curve, handles, interaction
       ResponseAxis.swift         Where a frequency sits — shared, and tested
       SpectrumBackdrop.swift     The analyzer's output, behind the curve
+      SpectrumBackdropGeometry.swift  Where those points sit — pure, and tested
       FilterListView.swift       Parametric editor: the table and its titles
       FilterRowView.swift        One band: swatch, kind, three knobs
       ColorPalettePicker.swift   The eight colours a band can wear

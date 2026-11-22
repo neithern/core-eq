@@ -1,6 +1,24 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Localized name shown for the app in Finder.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CoreEQ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器"
+          }
+        }
+      }
+    },
     "CFBundleName" : {
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
@@ -9,6 +27,30 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "CoreEQ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器"
+          }
+        }
+      }
+    },
+    "NSAppleEventsUsageDescription" : {
+      "comment" : "The reason macOS shows when it asks for control of Music. Same text as CoreEQ’s own explanation.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "CoreEQ asks Music what sample rate the current song is in, so the output device can be set to match it. Only that one property is read: nothing is played, paused, or changed in your library."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器需要读取音乐当前播放歌曲的采样率，以便把输出设备设为相同的采样率。只会读取这一项信息，不会播放、暂停或改动你的资料库。"
           }
         }
       }
@@ -21,6 +63,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "An equalizer has to reach the sound to change it. CoreEQ reads audio on its way to your speakers, adjusts it, and plays it straight back. Nothing is recorded, stored, or sent anywhere, and quitting CoreEQ hands the audio back immediately."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "均衡器需要访问音频才能调整声音。均衡器会读取传往扬声器的音频、进行调整并立即播放。不会录制、存储或发送任何内容；退出均衡器后，音频会立即恢复原样。"
           }
         }
       }

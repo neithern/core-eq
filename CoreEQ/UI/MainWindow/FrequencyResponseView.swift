@@ -34,9 +34,10 @@ struct FrequencyResponseView: View {
     var preamp: Double = 0
 
     /// The analyzer whose output is drawn behind the grid and curve, or nil for
-    /// no backdrop. Deliberately the object rather than its points: it is
-    /// observed by `SpectrumBackdrop` alone, so its sixty-a-second updates
-    /// invalidate that layer and leave this view untouched.
+    /// no backdrop. Deliberately the object rather than its points:
+    /// `SpectrumBackdrop` subscribes to it *outside* SwiftUI's update cycle and
+    /// moves two Core Animation layers, so a frame-rate tick never invalidates
+    /// this view.
     var spectrum: SpectrumAnalyzer?
 
     /// The filter whose node is drawn as chosen, and whose row is highlighted in
@@ -167,8 +168,8 @@ struct FrequencyResponseView: View {
     /// the same values: `FilterChain.normalized` guarantees one filter per
     /// slot carrying that slot's frequency. Deriving it instead cost a `filter`
     /// and a `sorted` *per call*, and this is called once per curve point, once
-    /// per spectrum point, and once per handle — several hundred times a frame,
-    /// sixty times a second.
+    /// per spectrum point, and once per handle — several hundred times a frame
+    /// while the analyzer is running.
     ///
     /// Deliberately the ladder alone: a free filter must never shift the grid or
     /// the frequency labels, or adding one would move every other point on the
