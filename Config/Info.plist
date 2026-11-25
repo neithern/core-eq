@@ -30,6 +30,8 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 Andrey Pudov · Apache License 2.0</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>CoreEQ asks Music what sample rate the current song is in, so the output device can be set to match it. Only that one property is read: nothing is played, paused, or changed in your library.</string>
 	<key>NSAudioCaptureUsageDescription</key>
 	<string>An equalizer has to reach the sound to change it. CoreEQ reads audio on its way to your speakers, adjusts it, and plays it straight back. Nothing is recorded, stored, or sent anywhere, and quitting CoreEQ hands the audio back immediately.</string>
 	<key>NSPrincipalClass</key>

@@ -21,4 +21,19 @@ enum SystemSettingsLink {
         guard let audioCapturePrivacy else { return }
         NSWorkspace.shared.open(audioCapturePrivacy)
     }
+
+    /// Privacy & Security → Automation, where "Music" appears under CoreEQ.
+    ///
+    /// A different pane from the one above, and a different permission: reading a
+    /// property of Music is automation, not audio capture. Sending someone to the
+    /// screen recording pane to fix it would leave them looking at a list CoreEQ is
+    /// not on.
+    static let automationPrivacy = URL(
+        string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation"
+    )
+
+    static func openAutomationPrivacy() {
+        guard let automationPrivacy else { return }
+        NSWorkspace.shared.open(automationPrivacy)
+    }
 }

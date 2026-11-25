@@ -24,6 +24,7 @@ final class SettingsStore {
         static let pausesWhileRecording = "pausesWhileRecording"
         static let excludedBundleIDs = "excludedBundleIDs"
         static let exclusionList = "exclusionListBundleIDs"
+        static let syncsOutputSampleRate = "syncsOutputSampleRate"
     }
 
     private let defaults: UserDefaults
@@ -104,6 +105,15 @@ final class SettingsStore {
     /// Always includes every excluded app, even one missing from the stored
     /// list, so nothing the engine leaves out can be invisible in the pane —
     /// the one place it could be switched back.
+    /// Whether the output device is kept at the playing track's sample rate.
+    ///
+    /// On by default: a 44.1 kHz album played through a 48 kHz output is resampled
+    /// for no reason the user asked for, and the device usually changes quietly.
+    var syncsOutputSampleRate: Bool {
+        get { defaults.object(forKey: Key.syncsOutputSampleRate) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Key.syncsOutputSampleRate) }
+    }
+
     var exclusionListBundleIDs: [String] {
         get {
             let listed = defaults.stringArray(forKey: Key.exclusionList) ?? []

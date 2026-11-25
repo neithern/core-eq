@@ -17,6 +17,7 @@ struct GeneralSettingsView: View {
 
     @ObservedObject private var engine = EngineStatusBridge.shared
     @ObservedObject private var route = SettingsRoute.shared
+    @ObservedObject private var rateSyncStatus = RateSyncStatusBridge.shared
 
     /// What is stopping the equalizer, if anything.
     ///
@@ -67,6 +68,32 @@ struct GeneralSettingsView: View {
             } footer: {
                 Text(
                     "Holding the audio device keeps a Mac awake. CoreEQ lets go after half a minute of silence and takes it back the moment something plays. Turn this off if your audio misbehaves."
+                )
+                .font(Theme.Font.label)
+                .foregroundStyle(.secondary)
+            }
+
+            Section {
+                Toggle("Match the output rate to the playing track", isOn: rateSyncBinding)
+                    .help("Set the output device to the sample rate of the song being played")
+
+                // Only when it has actually been refused. A prompt that never
+                // appeared is not a problem to report, and saying so would send
+                // someone to System Settings to fix something that is not wrong.
+                if rateSyncStatus.access == .refused {
+                    Label(
+                        "CoreEQ is not allowed to read Music, so the output rate cannot follow the song.",
+                        systemImage: "exclamationmark.triangle"
+                    )
+                    .font(Theme.Font.label)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    Button("Open System Settings") { SystemSettingsLink.openAutomationPrivacy() }
+                }
+            } footer: {
+                Text(
+                    "Sets the output to the song's rate when a track starts. Apple Music only."
                 )
                 .font(Theme.Font.label)
                 .foregroundStyle(.secondary)
@@ -248,6 +275,16 @@ struct GeneralSettingsView: View {
         Binding(
             get: { facts.settings.pausesWhenSilent },
             set: { facts.settings.pausesWhenSilent = $0 }
+        )
+    }
+
+    /// Written straight to `SettingsStore`. The engine listens for the change and
+    /// applies it at once — a song already playing is matched straight away rather
+    /// than waiting for the next track.
+    private var rateSyncBinding: Binding<Bool> {
+        Binding(
+            get: { facts.settings.syncsOutputSampleRate },
+            set: { facts.settings.syncsOutputSampleRate = $0 }
         )
     }
 
